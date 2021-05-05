@@ -1,0 +1,32 @@
+{
+  "name": "browser-extension-vue-template",
+  "short_name": "browser-extension-vue-template",
+  "description": "browser-extension-vue-template",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "tabs",
+    "unlimitedStorage",
+    "background",
+    "clipboardRead",
+    "clipboardWrite",
+    "cookies",
+    "webRequest",
+    "webNavigation",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://*/",
+    "http://*/",
+    "wss://*/",
+    "ws://*/"
+  ],
+  "action": {
+    "default_popup": "./index.html"
+  },
+  "icons": {},
+  "author": "rockey2020"
+}
