@@ -1,7 +1,7 @@
 {
-  "name": "browser-extension-vue-template",
-  "short_name": "browser-extension-vue-template",
-  "description": "browser-extension-vue-template",
+  "name": "darwinPass",
+  "short_name": "darwinPass",
+  "description": "darwinPass",
   "version": "1.0",
   "manifest_version": 3,
   "permissions": [
