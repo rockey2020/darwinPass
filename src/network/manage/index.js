@@ -1,4 +1,5 @@
 import http from "@/network/http";
+import Message from "@/network/message";
 
 class Manage {
   static GET = "get";
@@ -47,28 +48,39 @@ class Manage {
     return this;
   }
 
-  async send() {
+  send() {
     const { method, url, params, responseType } = this;
 
-    if (this.requestMocker) {
-      //mocker
-      return this.requestMocker({ method, url, params, responseType }).then(
-        async (response) => {
-          if (this.responseConverter) {
-            return await this.responseConverter(response);
-          }
+    return new Message(async (resolve, reject) => {
+      let body = null;
+      try {
+        if (this.requestMocker) {
+          //mocker
+          body = await this.requestMocker({
+            method,
+            url,
+            params,
+            responseType,
+          }).then(async (response) => {
+            if (this.responseConverter) {
+              return await this.responseConverter(response);
+            }
+          });
+        } else {
+          //real request
+          body = await http
+            .make({ method, url, params, responseType })
+            .then(async (response) => {
+              if (this.responseConverter) {
+                return await this.responseConverter(response);
+              }
+            });
         }
-      );
-    } else {
-      //real request
-      return http
-        .make({ method, url, params, responseType })
-        .then(async (response) => {
-          if (this.responseConverter) {
-            return await this.responseConverter(response);
-          }
-        });
-    }
+        resolve(body);
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 }
 

@@ -9,7 +9,7 @@ import {
 
 //---------- 用户管理 ----------
 
-export const fetchUser = async (params) => {
+export const fetchUser = (params) => {
   return new Manage()
     .setMethod(Manage.GET)
     .setUrl("/")
@@ -18,7 +18,7 @@ export const fetchUser = async (params) => {
     .send();
 };
 
-export const login = async (params) => {
+export const login = (params) => {
   return new Manage()
     .setMethod(Manage.GET)
     .setUrl("/")
@@ -29,7 +29,7 @@ export const login = async (params) => {
 
 //---------- 密码管理 ----------
 
-export const fetchPasswordList = async (params) => {
+export const fetchPasswordList = (params) => {
   return new Manage()
     .setMethod(Manage.GET)
     .setUrl("/")
@@ -39,7 +39,7 @@ export const fetchPasswordList = async (params) => {
     .send();
 };
 
-export const createPasswordItem = async (params) => {
+export const createPasswordItem = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
     .setUrl("/")
@@ -48,7 +48,7 @@ export const createPasswordItem = async (params) => {
     .send();
 };
 
-export const updatePasswordItem = async (params) => {
+export const updatePasswordItem = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
     .setUrl("/")
@@ -57,7 +57,7 @@ export const updatePasswordItem = async (params) => {
     .send();
 };
 
-export const deletePasswordItem = async (params) => {
+export const deletePasswordItem = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
     .setUrl("/")

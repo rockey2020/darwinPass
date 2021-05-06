@@ -1,19 +1,19 @@
 import * as request from "../request";
 
 class PasswordRepository {
-  static async fetchPasswordList() {
+  static fetchPasswordList() {
     return request.fetchPasswordList();
   }
 
-  static async createPasswordItem() {
+  static createPasswordItem() {
     return request.createPasswordItem();
   }
 
-  static async updatePasswordItem() {
+  static updatePasswordItem() {
     return request.updatePasswordItem();
   }
 
-  static async deletePasswordItem() {
+  static deletePasswordItem() {
     return request.deletePasswordItem();
   }
 }

@@ -1,11 +1,11 @@
 import * as request from "../request";
 
 class UserRepository {
-  static async fetchUser() {
+  static fetchUser() {
     return request.fetchUser();
   }
 
-  static async login() {
+  static login() {
     return request.login();
   }
 }
