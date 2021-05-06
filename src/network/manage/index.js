@@ -1,5 +1,5 @@
 import http from "@/network/http";
-import Message from "@/network/message";
+import Pipe from "@/network/pipe";
 
 class Manage {
   static GET = "get";
@@ -51,7 +51,7 @@ class Manage {
   send() {
     const { method, url, params, responseType } = this;
 
-    return new Message(async (resolve, reject) => {
+    return new Pipe(async (resolve, reject) => {
       let body = null;
       try {
         if (this.requestMocker) {

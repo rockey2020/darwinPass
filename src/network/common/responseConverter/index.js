@@ -9,7 +9,6 @@ export const ListDefaultConverter = async (response) => {
     pageSize = 0, //一个多少条数据
     totalCount = 0, //总数
   } = response ?? {};
-
   return { data, currentPage, pageSize, totalCount };
 };
 

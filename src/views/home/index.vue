@@ -63,6 +63,7 @@ export default {
     async onListRefresh() {
       this.refreshing = true;
       PasswordRepository.fetchPasswordList()
+        .makeResponseStatusMessage({ message: "请求列表" })
         .then(async (res) => {
           this.passwordList = await filterPassword(res.data);
         })

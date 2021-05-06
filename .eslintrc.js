@@ -42,7 +42,7 @@ module.exports = {
     "comma-style": "error",
     "computed-property-spacing": "error",
     "func-name-matching": "error",
-    indent: ["error", 2],
+    // indent: ["error", 2],
     "jsx-quotes": ["error", "prefer-double"],
     "key-spacing": "error",
     "keyword-spacing": "error",
