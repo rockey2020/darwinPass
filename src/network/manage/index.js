@@ -2,11 +2,15 @@ import http from "@/network/http";
 
 class Manage {
   static GET = "get";
+
   static POST = "post";
 
   method = null;
+
   url = null;
+
   params = null;
+
   responseType = "json";
 
   responseConverter = null;

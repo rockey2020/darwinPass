@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="Home">
     <p>首页</p>
   </div>
 </template>
@@ -8,7 +8,7 @@
 import UserRepository from "@/network/modules/user/repository/userRepository";
 
 export default {
-  name: "home",
+  name: "Home",
   created() {
     for (let i = 0; i < 10; i++) {
       UserRepository.getUser().then((res) => {

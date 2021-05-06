@@ -1,4 +1,5 @@
 import localforage from "localforage";
+
 import packageInfo from "../../package";
 
 const store = localforage.createInstance({

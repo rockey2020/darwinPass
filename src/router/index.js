@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+
 import http from "@/network/http";
 
 const baseLayout = () => import("../layout/baseLayout");

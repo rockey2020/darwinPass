@@ -1,4 +1,5 @@
 import createPersistedState from "vuex-persistedstate";
+
 import localforage from "@/plugins/localforage";
 
 export default (params = {}) => {

@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+
 import createPersistedState from "../plugins/vuexPersistedstate";
 
 export default createStore({
