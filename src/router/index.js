@@ -4,11 +4,11 @@ import http from "@/network/http";
 
 const baseLayout = () => import("../layout/baseLayout");
 
-function importAllRoutes(r) {
+function importAllModules(r) {
   return r.keys().map((key) => r(key).default);
 }
 
-const IndexChildrenRoutes = importAllRoutes(
+const IndexChildrenRoutes = importAllModules(
   require.context("../views/", true, /router\.js$/)
 );
 

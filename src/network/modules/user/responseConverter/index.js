@@ -1,3 +1,7 @@
-export const UserInfoConverter = (response) => {
-  return response ?? "信息为空";
-};
+import {
+  DefaultConverter,
+  EmptyDefaultConverter,
+  ListDefaultConverter,
+} from "@/network/common/responseConverter";
+
+export { DefaultConverter, EmptyDefaultConverter, ListDefaultConverter };

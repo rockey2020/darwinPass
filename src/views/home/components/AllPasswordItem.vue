@@ -1,12 +1,23 @@
 <template>
-  <div class="Home">
+  <div class="AllPasswordItem">
     <edit-password-item-dialog
       :show="showPasswordItemViewDialog"
-      :type="editPasswordItemDialogType"
+      type="edit"
       :current-password-item="currentPasswordItem"
       @update:show="showPasswordItemViewDialog = $event"
     ></edit-password-item-dialog>
 
+    <form action="/">
+      <van-search
+        input-align="center"
+        v-model="searchForm.keywords"
+        show-action
+        placeholder="请输入搜索关键词"
+        @search="onSearch"
+        @cancel="onCancel"
+        @update:model-value="onSearch"
+      />
+    </form>
     <div class="password-list" v-if="passwordList.length !== 0">
       <van-pull-refresh
         class="full-height"
@@ -23,48 +34,49 @@
         </template>
       </van-pull-refresh>
     </div>
-
-    <van-collapse v-model="activeCollapseNames">
-      <van-collapse-item title="所有密码" name="AllPasswordItem">
-        <all-password-item></all-password-item>
-      </van-collapse-item>
-      <van-collapse-item title="添加密码" name="2"></van-collapse-item>
-      <van-collapse-item title="生成随机安全密码" name="3"></van-collapse-item>
-      <van-collapse-item title="账号设置" name="4"></van-collapse-item>
-    </van-collapse>
   </div>
 </template>
 
 <script>
 import PasswordRepository from "@/network/modules/user/repository/PasswordRepository";
-import filterPassword from "@/utils/filterPassword";
-import AllPasswordItem from "@/views/home/components/AllPasswordItem";
+import fuzzySearchPassword from "@/utils/fuzzySearchPassword";
 import EditPasswordItemDialog from "@/views/home/components/EditPasswordItemDialog";
 
 export default {
-  name: "Home",
-  components: { EditPasswordItemDialog, AllPasswordItem },
+  name: "AllPasswordItem",
+  components: { EditPasswordItemDialog },
   data() {
     return {
-      activeCollapseNames: [],
       refreshing: false,
-      passwordList: [],
       showPasswordItemViewDialog: false,
       currentPasswordItem: {},
-      editPasswordItemDialogType: "edit",
+      passwordListCached: [],
+      passwordList: [],
+      searchForm: {
+        keywords: "",
+      },
     };
   },
   methods: {
     async showPasswordItemViewDialogHandle(item) {
       this.currentPasswordItem = item;
       this.showPasswordItemViewDialog = true;
-      this.editPasswordItemDialogType = "edit";
+    },
+    async onSearch() {
+      this.passwordList = await fuzzySearchPassword(
+        this.passwordListCached,
+        this.searchForm.keywords
+      );
+    },
+    async onCancel() {
+      this.passwordList = this.passwordListCached;
     },
     async onListRefresh() {
       this.refreshing = true;
       PasswordRepository.fetchPasswordList()
         .then(async (res) => {
-          this.passwordList = await filterPassword(res.data);
+          this.passwordListCached = res.data;
+          this.passwordList = res.data;
         })
         .finally(() => (this.refreshing = false));
     },
@@ -74,11 +86,15 @@ export default {
   },
 };
 </script>
+
 <style lang="less" scoped>
-.Home {
+.AllPasswordItem {
+  height: 33rem;
+  max-height: 33rem;
+
   .password-list {
-    height: 11rem;
-    max-height: 11rem;
+    height: 100%;
+    max-height: 100%;
     overflow: hidden;
 
     .full-height {

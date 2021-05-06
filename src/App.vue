@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="App da-flex-reset-css da-flex-reset-css-all da-flex-reset-css-all-child"
-  >
+  <div class="App">
     <router-view></router-view>
   </div>
 </template>

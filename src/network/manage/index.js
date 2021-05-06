@@ -15,6 +15,8 @@ class Manage {
 
   responseConverter = null;
 
+  requestMocker = null;
+
   setMethod(method) {
     this.method = method;
     return this;
@@ -40,11 +42,33 @@ class Manage {
     return this;
   }
 
-  send() {
+  setRequestMocker(requestMocker) {
+    this.requestMocker = requestMocker;
+    return this;
+  }
+
+  async send() {
     const { method, url, params, responseType } = this;
-    return http
-      .make({ method, url, params, responseType })
-      .then(this.responseConverter);
+
+    if (this.requestMocker) {
+      //mocker
+      return this.requestMocker({ method, url, params, responseType }).then(
+        async (response) => {
+          if (this.responseConverter) {
+            return await this.responseConverter(response);
+          }
+        }
+      );
+    } else {
+      //real request
+      return http
+        .make({ method, url, params, responseType })
+        .then(async (response) => {
+          if (this.responseConverter) {
+            return await this.responseConverter(response);
+          }
+        });
+    }
   }
 }
 

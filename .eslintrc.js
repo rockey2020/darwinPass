@@ -48,7 +48,7 @@ module.exports = {
     "keyword-spacing": "error",
     "lines-between-class-members": "error",
     "new-cap": "error",
-    "newline-per-chained-call": "error",
+    "newline-per-chained-call": ["error", { ignoreChainWithDepth: 3 }],
     "no-multiple-empty-lines": ["error", { max: 2 }],
     "no-trailing-spaces": "error",
     "no-unneeded-ternary": "error",
