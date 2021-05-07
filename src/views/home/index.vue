@@ -33,7 +33,12 @@
         title="添加密码"
         @click="showAddPasswordItemViewDialogHandle"
       ></van-cell>
-      <van-collapse-item title="生成随机安全密码" name="3"></van-collapse-item>
+      <van-collapse-item
+        title="生成随机安全密码"
+        name="GenerateRandomSecurityPassword"
+      >
+        <generate-random-security-password></generate-random-security-password>
+      </van-collapse-item>
       <van-collapse-item title="账号设置" name="4"></van-collapse-item>
     </van-collapse>
   </div>
@@ -44,13 +49,18 @@ import PasswordRepository from "@/network/modules/user/repository/PasswordReposi
 import filterPassword from "@/utils/filterPassword";
 import AllPasswordItem from "@/views/home/components/AllPasswordItem";
 import EditPasswordItemDialog from "@/views/home/components/EditPasswordItemDialog";
+import GenerateRandomSecurityPassword from "@/views/home/components/GenerateRandomSecurityPassword";
 
 export default {
   name: "Home",
-  components: { EditPasswordItemDialog, AllPasswordItem },
+  components: {
+    GenerateRandomSecurityPassword,
+    EditPasswordItemDialog,
+    AllPasswordItem,
+  },
   data() {
     return {
-      activeCollapseNames: [],
+      activeCollapseNames: ["GenerateRandomSecurityPassword"],
       refreshing: false,
       passwordList: [],
       showPasswordItemViewDialog: false,
