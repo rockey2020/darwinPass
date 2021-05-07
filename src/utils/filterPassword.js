@@ -1,5 +1,8 @@
-function domainMatcher(url = "") {
-  const { hostname } = location;
+import browserApi from "@/plugins/browserApi";
+
+async function domainMatcher(url = "") {
+  const getCurrentTab = await browserApi.getCurrentTab();
+  const { hostname } = new URL(getCurrentTab.url);
   let urlParsing = new URL(url);
   urlParsing = urlParsing.hostname;
 
@@ -47,5 +50,5 @@ function domainMatcher(url = "") {
 }
 
 export default async (list = []) => {
-  return list.filter((value) => domainMatcher(value.url));
+  return list.filter(async (value) => await domainMatcher(value.url));
 };

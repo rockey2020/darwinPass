@@ -1,4 +1,4 @@
-function keywordsMatcher(obj = {}, keywords) {
+async function keywordsMatcher(obj = {}, keywords) {
   const keywordsArray = keywords.split(" ");
   const wordsArray = Object.values(obj);
   return Boolean(
@@ -18,5 +18,5 @@ export default async (list = [], keywords = "") => {
   keywords = String(keywords).toLowerCase().trim();
   if (keywords.length === 0) return list;
 
-  return list.filter((value) => keywordsMatcher(value, keywords));
+  return list.filter(async (value) => await keywordsMatcher(value, keywords));
 };

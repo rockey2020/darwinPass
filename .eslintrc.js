@@ -11,6 +11,9 @@ module.exports = {
     },
     parser: "babel-eslint",
   },
+  globals: {
+    chrome: true,
+  },
   extends: [
     "plugin:vue/vue3-essential",
     "eslint:recommended",
