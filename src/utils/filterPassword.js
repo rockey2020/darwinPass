@@ -49,6 +49,22 @@ async function domainMatcher(url = "") {
   return false;
 }
 
-export default async (list = []) => {
-  return list.filter(async (value) => await domainMatcher(value.url));
+export default (list = []) => {
+  return new Promise((resolve) => {
+    const newList = [];
+    for (let value of list) {
+      newList.push(
+        domainMatcher(value.url).then((isHas) => {
+          if (isHas) {
+            return value;
+          } else {
+            return null;
+          }
+        })
+      );
+    }
+    Promise.all(newList).then((res) => {
+      resolve(res.filter((value) => value));
+    });
+  });
 };

@@ -14,9 +14,26 @@ async function keywordsMatcher(obj = {}, keywords) {
   );
 }
 
-export default async (list = [], keywords = "") => {
-  keywords = String(keywords).toLowerCase().trim();
-  if (keywords.length === 0) return list;
+export default (list = [], keywords = "") => {
+  return new Promise((resolve) => {
+    const newList = [];
+    keywords = String(keywords).toLowerCase().trim();
+    if (keywords.length === 0) return resolve(list);
 
-  return list.filter(async (value) => await keywordsMatcher(value, keywords));
+    for (let value of list) {
+      newList.push(
+        keywordsMatcher(value, keywords).then((isHas) => {
+          if (isHas) {
+            return value;
+          } else {
+            return null;
+          }
+        })
+      );
+    }
+
+    Promise.all(newList).then((res) => {
+      resolve(res.filter((value) => value));
+    });
+  });
 };
