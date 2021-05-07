@@ -14,7 +14,7 @@
         <div class="da-flex da-flex-column password-makeup">
           <div class="da-flex">
             <div class="da-flex size">
-              <div class="da-flex da-flex-item-40">
+              <div class="da-flex da-flex-item-50">
                 <van-field
                   label="长度"
                   class="van-field"
@@ -22,7 +22,7 @@
                   v-model.number="formData.size"
                 />
               </div>
-              <div class="da-flex da-flex-item-60">
+              <div class="da-flex da-flex-item-50">
                 <van-slider
                   class="van-slider"
                   v-model.number="formData.size"
@@ -43,14 +43,14 @@
               v-model="formData.excludedCharacters"
             />
             <div class="da-flex excluded-checkbox">
-              <span class="da-flex da-flex-item-60 da-flex-offset-left-4"
-                >允许的字符类型</span
+              <span class="da-flex da-flex-item-60 da-flex-offset-left-4 label"
+                >允许的字符类型:</span
               >
               <van-checkbox-group
                 class="van-checkbox-group"
                 direction="horizontal"
                 checked-color="#ee0a24"
-                v-model="formData.checkedOptions"
+                v-model="formData.charactersCheckedOptions"
               >
                 <van-checkbox :name="1">
                   <span>小写</span>
@@ -62,10 +62,7 @@
                   <span>数字</span>
                 </van-checkbox>
                 <van-checkbox :name="4">
-                  <span>英文符号</span>
-                </van-checkbox>
-                <van-checkbox :name="5">
-                  <span>中文符号</span>
+                  <span>符号</span>
                 </van-checkbox>
               </van-checkbox-group>
             </div>
@@ -78,6 +75,7 @@
 
 <script>
 import copyText from "@/utils/copyText";
+import generateString from "@/utils/generateString";
 
 export default {
   name: "GenerateRandomSecurityPassword",
@@ -89,12 +87,12 @@ export default {
         maxSize: 256,
         miniSize: 4,
         excludedCharacters: "i,l,o,O,0",
-        checkedOptions: [1, 2, 3],
+        charactersCheckedOptions: [1, 2, 3],
       },
     };
   },
   watch: {
-    async "formData.size"() {
+    async "formData.size"(newVal, oldVal) {
       this.formData.size = Number(this.formData.size);
       if (this.formData.size > this.formData.maxSize) {
         this.formData.size = this.formData.maxSize;
@@ -102,10 +100,34 @@ export default {
       if (this.formData.size < this.formData.miniSize) {
         this.formData.size = this.formData.miniSize;
       }
+      this.generatePassword();
+    },
+    async "formData.excludedCharacters"() {
+      this.generatePassword();
+    },
+    async "formData.charactersCheckedOptions"() {
+      this.generatePassword();
     },
   },
   methods: {
-    async refreshPassword() {},
+    async refreshPassword() {
+      this.generatePassword();
+    },
+    async generatePassword() {
+      const {
+        size,
+        excludedCharacters,
+        charactersCheckedOptions,
+      } = this.formData;
+      this.password = await generateString({
+        size,
+        excludedCharacters: excludedCharacters.split(","),
+        lowercase: charactersCheckedOptions.includes(1),
+        uppercase: charactersCheckedOptions.includes(2),
+        numbers: charactersCheckedOptions.includes(3),
+        symbols: charactersCheckedOptions.includes(4),
+      });
+    },
     async copyPassword() {
       if (this.password.length === 0) return;
       copyText(this.password)
@@ -117,11 +139,19 @@ export default {
         });
     },
   },
+  created() {
+    this.generatePassword();
+  },
 };
 </script>
 
 <style lang="less" scoped>
 .GenerateRandomSecurityPassword {
+  .label {
+    color: #646566;
+    text-align: left;
+  }
+
   .van-field {
     border-bottom: 1px solid #f1f1f1;
   }
