@@ -60,7 +60,7 @@ export default {
   },
   data() {
     return {
-      activeCollapseNames: ["GenerateRandomSecurityPassword"],
+      activeCollapseNames: [],
       refreshing: false,
       passwordList: [],
       showPasswordItemViewDialog: false,

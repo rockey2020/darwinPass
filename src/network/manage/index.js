@@ -1,5 +1,5 @@
 import http from "@/network/http";
-import Pipe from "@/network/pipe";
+import Pipe from "@/pipe";
 
 class Manage {
   static GET = "get";
