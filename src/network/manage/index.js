@@ -6,6 +6,10 @@ class Manage {
 
   static POST = "post";
 
+  static PUT = "put";
+
+  static DELETE = "delete";
+
   method = null;
 
   url = null;

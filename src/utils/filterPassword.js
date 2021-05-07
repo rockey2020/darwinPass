@@ -1,7 +1,7 @@
-import browserApi from "@/plugins/browserApi";
+import BrowserApi from "@/plugins/browserApi";
 
 async function domainMatcher(url = "") {
-  const getCurrentTab = await browserApi.getCurrentTab();
+  const getCurrentTab = await BrowserApi.getCurrentTab();
   const { hostname } = new URL(getCurrentTab.url);
   let urlParsing = new URL(url);
   urlParsing = urlParsing.hostname;

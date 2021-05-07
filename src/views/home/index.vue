@@ -18,7 +18,7 @@
             center
             :title="item.title"
             :label="item.username"
-            @click="showPasswordItemViewDialogHandle(item)"
+            @click="showEditPasswordItemViewDialogHandle(item)"
           />
         </template>
       </van-pull-refresh>
@@ -28,7 +28,11 @@
       <van-collapse-item title="所有密码" name="AllPasswordItem">
         <all-password-item></all-password-item>
       </van-collapse-item>
-      <van-collapse-item title="添加密码" name="2"></van-collapse-item>
+      <van-cell
+        class="cursor-pointer fix-cell-border"
+        title="添加密码"
+        @click="showAddPasswordItemViewDialogHandle"
+      ></van-cell>
       <van-collapse-item title="生成随机安全密码" name="3"></van-collapse-item>
       <van-collapse-item title="账号设置" name="4"></van-collapse-item>
     </van-collapse>
@@ -55,10 +59,15 @@ export default {
     };
   },
   methods: {
-    async showPasswordItemViewDialogHandle(item) {
+    async showEditPasswordItemViewDialogHandle(item) {
       this.currentPasswordItem = item;
       this.showPasswordItemViewDialog = true;
       this.editPasswordItemDialogType = "edit";
+    },
+    async showAddPasswordItemViewDialogHandle() {
+      this.currentPasswordItem = {};
+      this.showPasswordItemViewDialog = true;
+      this.editPasswordItemDialogType = "add";
     },
     async onListRefresh() {
       this.refreshing = true;
@@ -76,6 +85,15 @@ export default {
 </script>
 <style lang="less" scoped>
 .Home {
+  .fix-cell-border {
+    &::after {
+      border-top: 1px solid #ebedf0;
+      border-bottom: 0;
+      bottom: auto;
+      top: 0;
+    }
+  }
+
   .password-list {
     height: 11rem;
     max-height: 11rem;
