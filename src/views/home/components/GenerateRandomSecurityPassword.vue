@@ -119,6 +119,7 @@ export default {
         excludedCharacters,
         charactersCheckedOptions,
       } = this.formData;
+
       this.password = await generateString({
         size,
         excludedCharacters: excludedCharacters.split(","),
