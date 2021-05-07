@@ -93,8 +93,8 @@ export default {
   max-height: 33rem;
 
   .password-list {
-    height: 100%;
-    max-height: 100%;
+    height: 88%;
+    max-height: 88%;
     overflow: hidden;
 
     .full-height {
