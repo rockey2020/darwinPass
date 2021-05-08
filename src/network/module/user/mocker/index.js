@@ -16,9 +16,9 @@ export const PasswordListMocker = async (params) => {
 export const UserMocker = async (params) => {
   return {
     id: "aaaa",
-    username: "",
-    email: "",
-    maxIdleTime: 0,
+    username: "rockey",
+    email: "rockey@qq.com",
+    maxIdleTime: 10000,
     servicePlatformType: 1,
   };
 };

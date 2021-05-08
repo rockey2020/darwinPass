@@ -24,14 +24,16 @@
       <van-field
         clearable
         clickable
-        v-model="formData.maxIdleTime"
+        type="number"
+        v-model.number="formData.maxIdleTime"
         label="最大闲置时间"
         :rules="rules.maxIdleTime"
       />
       <van-field
         clearable
         clickable
-        v-model="formData.serviceType"
+        disabled
+        v-model="formData.servicePlatformTypeText"
         label="数据服务平台"
       />
     </van-form>
@@ -56,7 +58,7 @@ export default {
         username: "",
         email: "",
         maxIdleTime: "",
-        serviceType: "",
+        servicePlatformTypeText: "",
         oldPassword: "",
         password: "",
       },
@@ -64,13 +66,9 @@ export default {
   },
   methods: {
     async fetchUser() {
-      UserRepository.fetchUser()
-        .makeResponseStatusMessage({
-          message: "请求用户信息",
-        })
-        .then((res) => {
-          console.log(res);
-        });
+      UserRepository.fetchUser().then((res) => {
+        this.formData = { ...this.formData, ...res };
+      });
     },
   },
   created() {
