@@ -81,7 +81,7 @@
 <script>
 import {
   GeneratePasswordType,
-  GeneratePasswordTypeParse,
+  GeneratePasswordTypeFront,
 } from "@/network/common/constant/PasswordConstant";
 import copyText from "@/utils/copyText";
 import generateString from "@/utils/generateString";
@@ -89,7 +89,7 @@ import generateString from "@/utils/generateString";
 export default {
   name: "GenerateRandomSecurityPassword",
   data() {
-    const generatePasswordTypeSelectOptions = GeneratePasswordTypeParse;
+    const generatePasswordTypeSelectOptions = GeneratePasswordTypeFront;
     const generatePasswordTypeCheckedList = [
       GeneratePasswordType.Lowercase,
       GeneratePasswordType.Uppercase,

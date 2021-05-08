@@ -4,7 +4,7 @@ export const GeneratePasswordType = {
   Numbers: 3,
   Symbols: 4,
 };
-export const GeneratePasswordTypeParse = {
+export const GeneratePasswordTypeFront = {
   [GeneratePasswordType.Lowercase]: "小写",
   [GeneratePasswordType.Uppercase]: "大写",
   [GeneratePasswordType.Numbers]: "数字",
