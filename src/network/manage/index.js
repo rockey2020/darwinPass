@@ -22,6 +22,10 @@ class Manage {
 
   responseFilter = null;
 
+  static async clearRequestQueue() {
+    http.clearRequestQueue();
+  }
+
   setMethod(method) {
     this.method = method;
     return this;

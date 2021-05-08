@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
-import http from "@/network/http";
+import Manage from "@/network/manage";
 
 const baseLayout = () => import("../layout/baseLayout");
 
@@ -38,7 +38,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   //取消所有准备执行的请求
-  http.clearRequestQueue();
+  Manage.clearRequestQueue();
   next();
 });
 
