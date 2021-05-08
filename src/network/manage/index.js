@@ -18,9 +18,9 @@ class Manage {
 
   responseType = "json";
 
-  responseConverter = null;
-
   requestMocker = null;
+
+  responseFilter = null;
 
   setMethod(method) {
     this.method = method;
@@ -42,43 +42,35 @@ class Manage {
     return this;
   }
 
-  setResponseConverter(responseConverter) {
-    this.responseConverter = responseConverter;
-    return this;
-  }
-
   setRequestMocker(requestMocker) {
     this.requestMocker = requestMocker;
     return this;
   }
 
+  setResponseFilter(responseFilter) {
+    this.responseFilter = responseFilter;
+    return this;
+  }
+
   send() {
     const { method, url, params, responseType } = this;
+    const requestParams = { method, url, params, responseType };
+
+    const defaultProcessResponse = async (response) => {
+      if (this.responseFilter) {
+        return this.responseFilter(response);
+      }
+    };
 
     return new Pipe(async (resolve, reject) => {
       let body = null;
       try {
         if (this.requestMocker) {
           //mocker
-          body = await this.requestMocker({
-            method,
-            url,
-            params,
-            responseType,
-          }).then(async (response) => {
-            if (this.responseConverter) {
-              return await this.responseConverter(response);
-            }
-          });
+          body = this.requestMocker(requestParams).then(defaultProcessResponse);
         } else {
           //real request
-          body = await http
-            .make({ method, url, params, responseType })
-            .then(async (response) => {
-              if (this.responseConverter) {
-                return await this.responseConverter(response);
-              }
-            });
+          body = http.make(requestParams).then(defaultProcessResponse);
         }
         resolve(body);
       } catch (e) {

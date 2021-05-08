@@ -3,7 +3,13 @@
     <van-form ref="vanForm" colon show-error validate-trigger="onChange">
       <div class="da-flex da-flex-column">
         <div class="da-flex password-output">
-          <van-field class="password" ref="password" v-model="password" />
+          <van-field
+            clearable
+            clickable
+            class="password"
+            ref="password"
+            v-model="password"
+          />
           <van-icon class="copy" name="records" @click="copyPassword" />
           <van-icon
             class="da-flex-offset-left-5 refresh"
@@ -16,6 +22,7 @@
             <div class="da-flex size">
               <div class="da-flex da-flex-item-50">
                 <van-field
+                  clickable
                   label="长度"
                   class="van-field"
                   type="digit"
@@ -38,6 +45,8 @@
           </div>
           <div class="da-flex da-flex-column excluded-rules">
             <van-field
+              clearable
+              clickable
               class="van-field excluded-characters"
               label="排除的字符"
               v-model="formData.excludedCharacters"
@@ -73,7 +82,7 @@
 import {
   GeneratePasswordType,
   GeneratePasswordTypeParse,
-} from "@/network/common/constant/password";
+} from "@/network/common/constant/PasswordConstant";
 import copyText from "@/utils/copyText";
 import generateString from "@/utils/generateString";
 

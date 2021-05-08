@@ -1,11 +1,11 @@
 import Manage from "@/network/manage";
-import { PasswordListMocker } from "@/network/module/user/mocker";
+import { PasswordListMocker, UserMocker } from "@/network/module/user/mocker";
 
 import {
-  DefaultConverter,
-  EmptyDefaultConverter,
-  ListDefaultConverter,
-} from "../responseConverter";
+  DefaultFilter,
+  EmptyDefaultFilter,
+  ListDefaultFilter,
+} from "../responseFilter";
 
 //---------- 用户管理 ----------
 
@@ -14,7 +14,8 @@ export const fetchUser = (params) => {
     .setMethod(Manage.GET)
     .setUrl("/")
     .setParams(params)
-    .setResponseConverter(DefaultConverter)
+    .setResponseFilter(DefaultFilter)
+    .setRequestMocker(UserMocker)
     .send();
 };
 
@@ -23,7 +24,7 @@ export const login = (params) => {
     .setMethod(Manage.GET)
     .setUrl("/")
     .setParams(params)
-    .setResponseConverter(DefaultConverter)
+    .setResponseFilter(DefaultFilter)
     .send();
 };
 
@@ -34,7 +35,7 @@ export const fetchPasswordList = (params) => {
     .setMethod(Manage.GET)
     .setUrl("/")
     .setParams(params)
-    .setResponseConverter(ListDefaultConverter)
+    .setResponseFilter(ListDefaultFilter)
     .setRequestMocker(PasswordListMocker)
     .send();
 };
@@ -44,7 +45,7 @@ export const createPasswordItem = (params) => {
     .setMethod(Manage.POST)
     .setUrl("/")
     .setParams(params)
-    .setResponseConverter(EmptyDefaultConverter)
+    .setResponseFilter(EmptyDefaultFilter)
     .send();
 };
 
@@ -53,7 +54,7 @@ export const updatePasswordItem = (params) => {
     .setMethod(Manage.POST)
     .setUrl("/")
     .setParams(params)
-    .setResponseConverter(EmptyDefaultConverter)
+    .setResponseFilter(EmptyDefaultFilter)
     .send();
 };
 
@@ -62,6 +63,6 @@ export const deletePasswordItem = (params) => {
     .setMethod(Manage.POST)
     .setUrl("/")
     .setParams(params)
-    .setResponseConverter(EmptyDefaultConverter)
+    .setResponseFilter(EmptyDefaultFilter)
     .send();
 };

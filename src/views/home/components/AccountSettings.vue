@@ -1,32 +1,46 @@
 <template>
   <div class="AccountSettings">
-    <van-form ref="vanForm" colon show-error validate-trigger="onChange">
+    <van-form
+      ref="vanForm"
+      label-width="10rem"
+      colon
+      show-error
+      validate-trigger="onChange"
+    >
       <van-field
+        clearable
+        clickable
         v-model="formData.username"
-        name="用户名"
         label="用户名"
-        placeholder="用户名"
         :rules="rules.username"
       />
       <van-field
-        v-model="formData.username"
-        name="邮箱"
+        clearable
+        clickable
+        v-model="formData.email"
         label="邮箱"
-        placeholder="邮箱"
-        :rules="rules.username"
+        :rules="rules.email"
       />
       <van-field
-        v-model="formData.username"
-        name="最大闲置时间"
-        label="用户名"
-        placeholder="用户名"
-        :rules="rules.username"
+        clearable
+        clickable
+        v-model="formData.maxIdleTime"
+        label="最大闲置时间"
+        :rules="rules.maxIdleTime"
+      />
+      <van-field
+        clearable
+        clickable
+        v-model="formData.serviceType"
+        label="数据服务平台"
       />
     </van-form>
   </div>
 </template>
 
 <script>
+import UserRepository from "@/network/module/user/repository/UserRepository";
+
 export default {
   name: "AccountSettings",
   data() {
@@ -41,13 +55,26 @@ export default {
       formData: {
         username: "",
         email: "",
+        maxIdleTime: "",
+        serviceType: "",
         oldPassword: "",
         password: "",
-        maxIdleTime: "",
-        encryptionAlgorithm: "",
-        serviceType: "",
       },
     };
+  },
+  methods: {
+    async fetchUser() {
+      UserRepository.fetchUser()
+        .makeResponseStatusMessage({
+          message: "请求用户信息",
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    },
+  },
+  created() {
+    this.fetchUser();
   },
 };
 </script>

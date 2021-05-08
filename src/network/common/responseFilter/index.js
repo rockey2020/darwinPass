@@ -1,8 +1,8 @@
-export const DefaultConverter = async (response) => {
+export const DefaultFilter = async (response) => {
   return response ?? {};
 };
 
-export const ListDefaultConverter = async (response) => {
+export const ListDefaultFilter = async (response) => {
   const {
     data = [],
     currentPage = 1, //当前页数
@@ -12,6 +12,6 @@ export const ListDefaultConverter = async (response) => {
   return { data, currentPage, pageSize, totalCount };
 };
 
-export const EmptyDefaultConverter = async (response) => {
+export const EmptyDefaultFilter = async (response) => {
   return null;
 };

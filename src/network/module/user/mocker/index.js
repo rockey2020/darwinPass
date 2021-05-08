@@ -12,3 +12,13 @@ export const PasswordListMocker = async (params) => {
   }
   return { data };
 };
+
+export const UserMocker = async (params) => {
+  return {
+    id: "aaaa",
+    username: "",
+    email: "",
+    maxIdleTime: 0,
+    servicePlatformType: 1,
+  };
+};

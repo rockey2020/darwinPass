@@ -1,29 +1,30 @@
-import { ServiceTypeParse } from "@/network/module/user/constant";
+import { ServicePlatformTypeFront } from "@/network/common/constant/servicePlatformConstant";
 
 class User {
   constructor({
+    id = "",
     username = "",
     email = "",
     maxIdleTime = 0,
-    encryptionAlgorithm = "",
-    serviceType = 0,
+    servicePlatformType = 0,
     //自定义字段
-    serviceTypeText = "",
-  }) {
+    servicePlatformTypeText = "",
+  } = {}) {
+    this.id = id;
     this.username = username;
     this.email = email;
     this.maxIdleTime = maxIdleTime;
-    this.encryptionAlgorithm = encryptionAlgorithm;
-    this.serviceType = serviceType;
+    this.servicePlatformType = servicePlatformType;
 
     //自定义字段
-    this.serviceTypeText = serviceTypeText;
+    this.servicePlatformTypeText = servicePlatformTypeText;
 
     this.parsingField();
   }
 
   parsingField() {
-    this.serviceTypeText = ServiceTypeParse[this.serviceType];
+    this.servicePlatformTypeText =
+      ServicePlatformTypeFront[this.servicePlatformType];
   }
 }
 
