@@ -18,7 +18,7 @@
                 <van-field
                   label="长度"
                   class="van-field"
-                  type="number"
+                  type="digit"
                   v-model.number="formData.size"
                 />
               </div>
@@ -50,20 +50,16 @@
                 class="van-checkbox-group"
                 direction="horizontal"
                 checked-color="#ee0a24"
-                v-model="formData.charactersCheckedOptions"
+                v-model="formData.generatePasswordTypeCheckedList"
               >
-                <van-checkbox :name="1">
-                  <span>小写</span>
-                </van-checkbox>
-                <van-checkbox :name="2">
-                  <span>大写</span>
-                </van-checkbox>
-                <van-checkbox :name="3">
-                  <span>数字</span>
-                </van-checkbox>
-                <van-checkbox :name="4">
-                  <span>符号</span>
-                </van-checkbox>
+                <template
+                  v-for="(item, index) of generatePasswordTypeSelectOptions"
+                  :key="index"
+                >
+                  <van-checkbox :name="Number(index)">
+                    <span>{{ item }}</span>
+                  </van-checkbox>
+                </template>
               </van-checkbox-group>
             </div>
           </div>
@@ -74,38 +70,55 @@
 </template>
 
 <script>
+import {
+  GeneratePasswordType,
+  GeneratePasswordTypeParse,
+} from "@/network/common/constant/password";
 import copyText from "@/utils/copyText";
 import generateString from "@/utils/generateString";
 
 export default {
   name: "GenerateRandomSecurityPassword",
   data() {
+    const generatePasswordTypeSelectOptions = GeneratePasswordTypeParse;
+    const generatePasswordTypeCheckedList = [
+      GeneratePasswordType.Lowercase,
+      GeneratePasswordType.Uppercase,
+      GeneratePasswordType.Numbers,
+    ];
     return {
+      generatePasswordTypeSelectOptions,
       password: "",
       formData: {
         size: 12,
         maxSize: 256,
         miniSize: 4,
-        excludedCharacters: "i,l,o,O,0",
-        charactersCheckedOptions: [1, 2, 3],
+        excludedCharacters: "iloO0",
+        generatePasswordTypeCheckedList,
       },
     };
   },
   watch: {
     async "formData.size"(newVal, oldVal) {
-      this.formData.size = Number(this.formData.size);
-      if (this.formData.size > this.formData.maxSize) {
-        this.formData.size = this.formData.maxSize;
+      newVal = Number(newVal);
+      oldVal = Number(oldVal);
+
+      if (newVal < this.formData.miniSize) {
+        newVal = this.formData.miniSize;
       }
-      if (this.formData.size < this.formData.miniSize) {
-        this.formData.size = this.formData.miniSize;
+      if (newVal > this.formData.maxSize) {
+        newVal = this.formData.maxSize;
       }
-      this.generatePassword();
+
+      this.formData.size = newVal;
+      if (oldVal > this.formData.miniSize) {
+        this.generatePassword();
+      }
     },
     async "formData.excludedCharacters"() {
       this.generatePassword();
     },
-    async "formData.charactersCheckedOptions"() {
+    async "formData.generatePasswordTypeCheckedList"() {
       this.generatePassword();
     },
   },
@@ -117,16 +130,24 @@ export default {
       const {
         size,
         excludedCharacters,
-        charactersCheckedOptions,
+        generatePasswordTypeCheckedList,
       } = this.formData;
 
       this.password = await generateString({
         size,
-        excludedCharacters: excludedCharacters.split(","),
-        lowercase: charactersCheckedOptions.includes(1),
-        uppercase: charactersCheckedOptions.includes(2),
-        numbers: charactersCheckedOptions.includes(3),
-        symbols: charactersCheckedOptions.includes(4),
+        excludedCharacters: excludedCharacters.split(""),
+        lowercase: generatePasswordTypeCheckedList.includes(
+          GeneratePasswordType.Lowercase
+        ),
+        uppercase: generatePasswordTypeCheckedList.includes(
+          GeneratePasswordType.Uppercase
+        ),
+        numbers: generatePasswordTypeCheckedList.includes(
+          GeneratePasswordType.Numbers
+        ),
+        symbols: generatePasswordTypeCheckedList.includes(
+          GeneratePasswordType.Symbols
+        ),
       });
     },
     async copyPassword() {
