@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import PasswordRepository from "@/network/modules/user/repository/PasswordRepository";
+import PasswordRepository from "@/network/module/user/repository/PasswordRepository";
 import fuzzySearchPassword from "@/utils/fuzzySearchPassword";
 import EditPasswordItemDialog from "@/views/home/components/EditPasswordItemDialog";
 

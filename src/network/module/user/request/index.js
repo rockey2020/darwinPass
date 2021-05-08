@@ -1,5 +1,5 @@
 import Manage from "@/network/manage";
-import { PasswordListMocker } from "@/network/modules/user/mocker";
+import { PasswordListMocker } from "@/network/module/user/mocker";
 
 import {
   DefaultConverter,

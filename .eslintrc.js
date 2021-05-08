@@ -69,9 +69,10 @@ module.exports = {
     "no-useless-rename": "error",
     "no-var": "error",
     "prefer-rest-params": "error",
-    //插件配置
+    //插件配置 simple-import-sort
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+    //插件配置 import
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",

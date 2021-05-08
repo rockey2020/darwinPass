@@ -39,14 +39,17 @@
       >
         <generate-random-security-password></generate-random-security-password>
       </van-collapse-item>
-      <van-collapse-item title="账号设置" name="4"></van-collapse-item>
+      <van-collapse-item title="账号设置" name="4">
+        <account-settings></account-settings>
+      </van-collapse-item>
     </van-collapse>
   </div>
 </template>
 
 <script>
-import PasswordRepository from "@/network/modules/user/repository/PasswordRepository";
+import PasswordRepository from "@/network/module/user/repository/PasswordRepository";
 import filterPassword from "@/utils/filterPassword";
+import AccountSettings from "@/views/home/components/AccountSettings";
 import AllPasswordItem from "@/views/home/components/AllPasswordItem";
 import EditPasswordItemDialog from "@/views/home/components/EditPasswordItemDialog";
 import GenerateRandomSecurityPassword from "@/views/home/components/GenerateRandomSecurityPassword";
@@ -54,6 +57,7 @@ import GenerateRandomSecurityPassword from "@/views/home/components/GenerateRand
 export default {
   name: "Home",
   components: {
+    AccountSettings,
     GenerateRandomSecurityPassword,
     EditPasswordItemDialog,
     AllPasswordItem,
