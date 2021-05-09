@@ -21,8 +21,8 @@
         <van-field
           clearable
           clickable
+          required
           v-model.trim="formData.url"
-          name="网址"
           label="网址"
           placeholder="网址"
           rows="3"
@@ -33,8 +33,8 @@
         <van-field
           clearable
           clickable
+          required
           v-model.trim="formData.title"
-          name="标题"
           label="标题"
           placeholder="标题"
           :rules="rules.title"
@@ -42,8 +42,8 @@
         <van-field
           clearable
           clickable
+          required
           v-model.trim="formData.username"
-          name="用户名"
           label="用户名"
           placeholder="用户名"
           :rules="rules.username"
@@ -51,9 +51,9 @@
         <van-field
           clearable
           clickable
+          required
           v-model.trim="formData.password"
           :type="showPassword ? 'text' : 'password'"
-          name="密码"
           label="密码"
           placeholder="密码"
           :right-icon="showPassword ? 'eye-o' : 'closed-eye'"
@@ -64,7 +64,6 @@
           clearable
           clickable
           v-model.trim="formData.notes"
-          name="备注"
           label="备注"
           rows="5"
           type="textarea"
