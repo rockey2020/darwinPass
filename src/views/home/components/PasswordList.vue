@@ -61,9 +61,7 @@
               <van-cell center :title="item.title" :label="item.username">
                 <template #default>
                   <div class="da-flex da-flex-justify-end">
-                    <div
-                      class="da-flex da-flex-justify-space-around da-flex-item-85"
-                    >
+                    <div class="da-flex da-flex-justify-space-around">
                       <div class="da-flex da-flex-inline">
                         <van-button
                           type="primary"
@@ -235,6 +233,7 @@ export default {
 <style lang="less" scoped>
 .PasswordList {
   height: 33rem;
+  background-color: white;
 
   .empty {
     /deep/ .van-empty__image {

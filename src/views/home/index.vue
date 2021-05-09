@@ -77,7 +77,6 @@ export default {
 </script>
 <style lang="less" scoped>
 .Home {
-  padding-top: 2rem;
   .fix-cell-border {
     &::after {
       border-top: 1px solid #ebedf0;
@@ -94,7 +93,9 @@ export default {
       font-size: 14px;
       margin: 0;
       padding: 0;
-      height: 2rem;
+      height: 3rem;
+      line-height: 3rem;
+      background-color: white;
     }
 
     /deep/ .PasswordList {
