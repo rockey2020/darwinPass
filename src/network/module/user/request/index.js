@@ -28,6 +28,15 @@ export const login = (params) => {
     .send();
 };
 
+export const updateUser = (params) => {
+  return new Manage()
+    .setMethod(Manage.POST)
+    .setUrl("/")
+    .setParams(params)
+    .setResponseFilter(EmptyDefaultFilter)
+    .send();
+};
+
 //---------- 密码管理 ----------
 
 export const fetchPasswordList = (params) => {

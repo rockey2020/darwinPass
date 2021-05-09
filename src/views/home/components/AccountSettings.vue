@@ -36,6 +36,12 @@
         v-model="formData.servicePlatformTypeText"
         label="数据服务平台"
       />
+
+      <div class="da-flex da-flex-justify-center">
+        <van-button type="primary" class="submit" @click="submit()"
+          >更新
+        </van-button>
+      </div>
     </van-form>
   </div>
 </template>
@@ -70,6 +76,11 @@ export default {
         this.formData = { ...this.formData, ...res };
       });
     },
+    async submit() {
+      UserRepository.updateUser(this.formData).makeResponseStatusMessage({
+        message: "更新用户信息",
+      });
+    },
   },
   created() {
     this.fetchUser();
@@ -79,5 +90,9 @@ export default {
 
 <style lang="less" scoped>
 .AccountSettings {
+  .submit {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
 }
 </style>

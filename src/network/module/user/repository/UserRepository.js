@@ -7,8 +7,12 @@ class UserRepository {
     return request.fetchUser().then((res) => new User(res));
   }
 
-  static login() {
-    return request.login();
+  static login(params) {
+    return request.login(params);
+  }
+
+  static updateUser(params) {
+    return request.updateUser(params);
   }
 }
 
