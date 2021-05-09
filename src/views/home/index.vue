@@ -12,6 +12,7 @@
       <password-list
         :has-checkbox="false"
         :has-search="false"
+        :show-current-domain="true"
         ref="partPassword"
       ></password-list>
     </div>
