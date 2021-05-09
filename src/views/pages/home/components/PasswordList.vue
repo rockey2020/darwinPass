@@ -106,7 +106,7 @@ import PasswordRepository from "@/network/module/user/repository/PasswordReposit
 import copyText from "@/utils/copyText";
 import filterPassword from "@/utils/filterPassword";
 import fuzzySearchPassword from "@/utils/fuzzySearchPassword";
-import EditPasswordDialog from "@/views/home/components/EditPasswordDialog";
+import EditPasswordDialog from "@/views/pages/home/components/EditPasswordDialog";
 
 export default {
   name: "PasswordList",

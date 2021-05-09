@@ -43,10 +43,10 @@
 </template>
 
 <script>
-import AccountSettings from "@/views/home/components/AccountSettings";
-import EditPasswordDialog from "@/views/home/components/EditPasswordDialog";
-import GenerateRandomSecurityPassword from "@/views/home/components/GenerateRandomSecurityPassword";
-import PasswordList from "@/views/home/components/PasswordList";
+import AccountSettings from "@/views/pages/home/components/AccountSettings";
+import EditPasswordDialog from "@/views/pages/home/components/EditPasswordDialog";
+import GenerateRandomSecurityPassword from "@/views/pages/home/components/GenerateRandomSecurityPassword";
+import PasswordList from "@/views/pages/home/components/PasswordList";
 
 export default {
   name: "Home",
