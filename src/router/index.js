@@ -8,8 +8,11 @@ function importAllModules(r) {
   return r.keys().map((key) => r(key).default);
 }
 
-const IndexChildrenRoutes = importAllModules(
-  require.context("../views/", true, /router\.js$/)
+const PagesChildrenRoutes = importAllModules(
+  require.context("../views/pages", true, /router\.js$/)
+);
+const DefaultChildrenRoutes = importAllModules(
+  require.context("../views/default", true, /router\.js$/)
 );
 
 const routes = [
@@ -17,9 +20,10 @@ const routes = [
     path: "/",
     name: "index",
     component: baseLayout,
-    redirect: { name: "home" },
-    children: IndexChildrenRoutes,
+    redirect: { name: "login" },
+    children: PagesChildrenRoutes,
   },
+  ...DefaultChildrenRoutes,
   {
     path: "/:pathMatch(.*)*",
     name: "404",
