@@ -49,7 +49,7 @@ export const fetchPasswordList = (params) => {
     .send();
 };
 
-export const createPasswordItem = (params) => {
+export const createPassword = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
     .setUrl("/")

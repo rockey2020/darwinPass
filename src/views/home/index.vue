@@ -9,6 +9,7 @@
     ></edit-password-dialog>
 
     <div class="part-password">
+      <p class="valid">当前有效密码</p>
       <password-list
         :has-checkbox="false"
         :has-search="false"
@@ -76,6 +77,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .Home {
+  padding-top: 2rem;
   .fix-cell-border {
     &::after {
       border-top: 1px solid #ebedf0;
@@ -86,11 +88,20 @@ export default {
   }
 
   .part-password {
+    .valid {
+      text-align: center;
+      color: #3d8af2;
+      font-size: 14px;
+      margin: 0;
+      padding: 0;
+      height: 2rem;
+    }
+
     /deep/ .PasswordList {
       height: 20rem;
 
       .password-list-warp {
-        height: 100%;
+        height: 18rem;
       }
     }
   }

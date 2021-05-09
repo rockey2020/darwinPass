@@ -36,6 +36,14 @@
           >批量删除
         </van-button>
       </div>
+      <div class="da-flex da-flex-inline da-flex-offset-left-2">
+        <span>共{{ passwordList.length }}条密码</span>
+      </div>
+    </div>
+    <div v-else class="da-flex da-flex-justify-center">
+      <div class="da-flex da-flex-inline" style="height: 2rem">
+        <span class="">共{{ passwordList.length }}条密码</span>
+      </div>
     </div>
     <div class="password-list-warp" v-if="passwordList.length !== 0">
       <van-checkbox-group
@@ -88,6 +96,9 @@
           </template>
         </van-pull-refresh>
       </van-checkbox-group>
+    </div>
+    <div class="da-flex da-flex-justify-center empty" v-else>
+      <van-empty image="error" description="暂无数据" />
     </div>
   </div>
 </template>
@@ -224,6 +235,13 @@ export default {
 <style lang="less" scoped>
 .PasswordList {
   height: 33rem;
+
+  .empty {
+    /deep/ .van-empty__image {
+      width: 80px;
+      height: 80px;
+    }
+  }
 
   .password-list-warp {
     height: 78%;

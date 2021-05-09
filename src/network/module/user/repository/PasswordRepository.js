@@ -18,7 +18,18 @@ class PasswordRepository {
     username = "",
     password = "",
   } = {}) {
-    return request.updatePassword().then((res) => new Password(res));
+    return request.updatePassword();
+  }
+
+  static createPassword({
+    id = null,
+    url = "",
+    notes = "",
+    title = "",
+    username = "",
+    password = "",
+  } = {}) {
+    return request.createPassword();
   }
 
   static deletePasswordList({ ids }) {
