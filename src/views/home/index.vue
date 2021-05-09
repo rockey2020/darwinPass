@@ -9,7 +9,9 @@
     ></edit-password-dialog>
 
     <div class="part-password">
-      <p class="valid">当前有效密码</p>
+      <p class="valid">
+        <van-tag plain type="success">当前有效密码</van-tag>
+      </p>
       <password-list
         :has-checkbox="false"
         :has-search="false"
@@ -87,15 +89,16 @@ export default {
   }
 
   .part-password {
+    background-color: white;
+    padding-top: 1rem;
+
     .valid {
       text-align: center;
       color: #3d8af2;
-      font-size: 14px;
       margin: 0;
       padding: 0;
       height: 3rem;
       line-height: 3rem;
-      background-color: white;
     }
 
     /deep/ .PasswordList {
