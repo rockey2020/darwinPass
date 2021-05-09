@@ -10,7 +10,7 @@ class PasswordRepository {
     });
   }
 
-  static updatePasswordItem({
+  static updatePassword({
     id = null,
     url = "",
     notes = "",
@@ -18,7 +18,7 @@ class PasswordRepository {
     username = "",
     password = "",
   } = {}) {
-    return request.updatePasswordItem().then((res) => new Password(res));
+    return request.updatePassword().then((res) => new Password(res));
   }
 
   static deletePasswordList({ ids }) {

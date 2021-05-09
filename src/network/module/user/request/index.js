@@ -58,7 +58,7 @@ export const createPasswordItem = (params) => {
     .send();
 };
 
-export const updatePasswordItem = (params) => {
+export const updatePassword = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
     .setUrl("/")

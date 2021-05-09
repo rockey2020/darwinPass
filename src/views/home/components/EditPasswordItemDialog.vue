@@ -5,13 +5,13 @@
       theme="round-button"
       show-cancel-button
       :title="type === 'edit' ? '编辑密码' : '添加密码'"
-      @confirm="onSubmit"
+      @confirm="updatePassword"
       :before-close="() => false"
       @cancel="() => (visible = false)"
     >
       <van-form
         ref="vanForm"
-        @submit="onSubmit"
+        @submit="updatePassword"
         label-width="5rem"
         colon
         show-error
@@ -152,9 +152,9 @@ export default {
     },
   },
   methods: {
-    async onSubmit() {
+    async updatePassword() {
       this.$refs.vanForm.validate().then(() => {
-        PasswordRepository.updatePasswordItem(this.formData).then(
+        PasswordRepository.updatePassword(this.formData).then(
           () => (this.visible = false)
         );
       });

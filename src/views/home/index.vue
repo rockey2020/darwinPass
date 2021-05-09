@@ -7,23 +7,6 @@
       @update:show="showPasswordItemViewDialog = $event"
     ></edit-password-item-dialog>
 
-    <div class="password-list" v-if="passwordList.length !== 0">
-      <van-pull-refresh
-        class="full-height"
-        v-model="refreshing"
-        @refresh="onListRefresh"
-      >
-        <template v-for="(item, index) of passwordList" :key="index">
-          <van-cell
-            center
-            :title="item.title"
-            :label="item.username"
-            @click="showEditPasswordItemViewDialogHandle(item)"
-          />
-        </template>
-      </van-pull-refresh>
-    </div>
-
     <van-collapse v-model="activeCollapseNames">
       <van-collapse-item title="所有密码" name="AllPasswordItem">
         <all-password-item></all-password-item>
@@ -47,8 +30,6 @@
 </template>
 
 <script>
-import PasswordRepository from "@/network/module/user/repository/PasswordRepository";
-import filterPassword from "@/utils/filterPassword";
 import AccountSettings from "@/views/home/components/AccountSettings";
 import AllPasswordItem from "@/views/home/components/AllPasswordItem";
 import EditPasswordItemDialog from "@/views/home/components/EditPasswordItemDialog";
@@ -65,35 +46,17 @@ export default {
   data() {
     return {
       activeCollapseNames: ["AllPasswordItem"],
-      refreshing: false,
-      passwordList: [],
       showPasswordItemViewDialog: false,
       currentPasswordItem: {},
       editPasswordItemDialogType: "edit",
     };
   },
   methods: {
-    async showEditPasswordItemViewDialogHandle(item) {
-      this.currentPasswordItem = item;
-      this.showPasswordItemViewDialog = true;
-      this.editPasswordItemDialogType = "edit";
-    },
     async showAddPasswordItemViewDialogHandle() {
       this.currentPasswordItem = {};
       this.showPasswordItemViewDialog = true;
       this.editPasswordItemDialogType = "add";
     },
-    async onListRefresh() {
-      this.refreshing = true;
-      PasswordRepository.fetchPasswordList()
-        .then(async (res) => {
-          this.passwordList = await filterPassword(res.data);
-        })
-        .finally(() => (this.refreshing = false));
-    },
-  },
-  created() {
-    this.onListRefresh();
   },
 };
 </script>

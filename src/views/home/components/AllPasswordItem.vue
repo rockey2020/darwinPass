@@ -22,16 +22,16 @@
       <div class="da-flex da-flex-inline">
         <van-button
           v-if="passwordListChecked.length === 0"
-          type="danger"
+          type="primary"
           size="small"
           @click="checkAll"
           >全选
         </van-button>
-        <van-button v-else type="danger" size="small" @click="cancelCheckAll"
+        <van-button v-else type="primary" size="small" @click="cancelCheckAll"
           >取消全选
         </van-button>
       </div>
-      <div class="da-flex da-flex-inline">
+      <div class="da-flex da-flex-inline da-flex-offset-left-2">
         <van-button type="danger" size="small" @click="deletePasswordList"
           >批量删除
         </van-button>
@@ -99,7 +99,7 @@ export default {
   components: { EditPasswordItemDialog },
   data() {
     return {
-      refreshing: false,
+      refreshing: true,
       showPasswordItemViewDialog: false,
       currentPasswordItem: {},
       passwordListCached: [],
@@ -131,8 +131,10 @@ export default {
       this.passwordListChecked = [];
     },
     async fetchPasswordList() {
+      if (!this.refreshing) return;
       this.passwordListChecked = [];
       this.refreshing = true;
+
       PasswordRepository.fetchPasswordList()
         .then(async (res) => {
           this.passwordListCached = res.data;
