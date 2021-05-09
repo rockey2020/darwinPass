@@ -1,15 +1,24 @@
 <template>
   <div class="Home">
-    <edit-password-item-dialog
+    <edit-password-dialog
+      @success="onPasswordSuccess"
       :show="showPasswordItemViewDialog"
       :type="editPasswordItemDialogType"
       :current-password-item="currentPasswordItem"
       @update:show="showPasswordItemViewDialog = $event"
-    ></edit-password-item-dialog>
+    ></edit-password-dialog>
+
+    <div class="part-password">
+      <password-list
+        :has-checkbox="false"
+        :has-search="false"
+        ref="partPassword"
+      ></password-list>
+    </div>
 
     <van-collapse v-model="activeCollapseNames">
-      <van-collapse-item title="所有密码" name="AllPasswordItem">
-        <all-password-item></all-password-item>
+      <van-collapse-item title="所有密码" name="AllPassword">
+        <password-list ref="allPassword"></password-list>
       </van-collapse-item>
       <van-cell
         class="cursor-pointer fix-cell-border"
@@ -22,7 +31,7 @@
       >
         <generate-random-security-password></generate-random-security-password>
       </van-collapse-item>
-      <van-collapse-item title="账号设置" name="4">
+      <van-collapse-item title="账号设置" name="AccountSettings">
         <account-settings></account-settings>
       </van-collapse-item>
     </van-collapse>
@@ -31,21 +40,21 @@
 
 <script>
 import AccountSettings from "@/views/home/components/AccountSettings";
-import AllPasswordItem from "@/views/home/components/AllPasswordItem";
-import EditPasswordItemDialog from "@/views/home/components/EditPasswordItemDialog";
+import EditPasswordDialog from "@/views/home/components/EditPasswordDialog";
 import GenerateRandomSecurityPassword from "@/views/home/components/GenerateRandomSecurityPassword";
+import PasswordList from "@/views/home/components/PasswordList";
 
 export default {
   name: "Home",
   components: {
     AccountSettings,
     GenerateRandomSecurityPassword,
-    EditPasswordItemDialog,
-    AllPasswordItem,
+    EditPasswordDialog,
+    PasswordList,
   },
   data() {
     return {
-      activeCollapseNames: ["AllPasswordItem"],
+      activeCollapseNames: [],
       showPasswordItemViewDialog: false,
       currentPasswordItem: {},
       editPasswordItemDialogType: "edit",
@@ -56,6 +65,10 @@ export default {
       this.currentPasswordItem = {};
       this.showPasswordItemViewDialog = true;
       this.editPasswordItemDialogType = "add";
+    },
+    async onPasswordSuccess() {
+      this.$refs.allPassword.fetchPasswordList();
+      this.$refs.partPassword.fetchPasswordList();
     },
   },
 };
@@ -71,16 +84,13 @@ export default {
     }
   }
 
-  .password-list {
-    height: 11rem;
-    max-height: 11rem;
-    overflow: hidden;
+  .part-password {
+    /deep/ .PasswordList {
+      height: 20rem;
 
-    .full-height {
-      height: 100%;
-      max-height: 100%;
-      overflow: hidden;
-      overflow-y: auto;
+      .password-list-warp {
+        height: 100%;
+      }
     }
   }
 }

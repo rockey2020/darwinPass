@@ -1,13 +1,13 @@
 <template>
-  <div class="AllPasswordItem">
-    <edit-password-item-dialog
+  <div class="PasswordList">
+    <edit-password-dialog
       :show="showPasswordItemViewDialog"
       type="edit"
       :current-password-item="currentPasswordItem"
       @update:show="showPasswordItemViewDialog = $event"
-    ></edit-password-item-dialog>
+    ></edit-password-dialog>
 
-    <form action="/">
+    <form action="/" v-if="hasSearch">
       <van-search
         input-align="center"
         v-model="searchForm.keywords"
@@ -18,7 +18,7 @@
         @update:model-value="onSearch"
       />
     </form>
-    <div class="da-flex">
+    <div v-if="hasCheckbox" class="da-flex">
       <div class="da-flex da-flex-inline">
         <van-button
           v-if="passwordListChecked.length === 0"
@@ -37,7 +37,7 @@
         </van-button>
       </div>
     </div>
-    <div class="password-list" v-if="passwordList.length !== 0">
+    <div class="password-list-warp" v-if="passwordList.length !== 0">
       <van-checkbox-group
         class="van-checkbox-group full-height"
         ref="checkboxGroup"
@@ -45,7 +45,11 @@
       >
         <van-pull-refresh v-model="refreshing" @refresh="fetchPasswordList">
           <template v-for="(item, index) of passwordList" :key="index">
-            <van-checkbox class="da-flex password-list-item" :name="item.id">
+            <van-checkbox
+              :class="{ 'not-checkbox': !hasCheckbox }"
+              class="da-flex password-list-warp-item"
+              :name="item.id"
+            >
               <van-cell center :title="item.title" :label="item.username">
                 <template #default>
                   <div class="da-flex da-flex-justify-end">
@@ -91,12 +95,27 @@
 <script>
 import PasswordRepository from "@/network/module/user/repository/PasswordRepository";
 import copyText from "@/utils/copyText";
+import filterPassword from "@/utils/filterPassword";
 import fuzzySearchPassword from "@/utils/fuzzySearchPassword";
-import EditPasswordItemDialog from "@/views/home/components/EditPasswordItemDialog";
+import EditPasswordDialog from "@/views/home/components/EditPasswordDialog";
 
 export default {
-  name: "AllPasswordItem",
-  components: { EditPasswordItemDialog },
+  name: "PasswordList",
+  components: { EditPasswordDialog },
+  props: {
+    hasSearch: {
+      type: Boolean,
+      default: true,
+    },
+    hasCheckbox: {
+      type: Boolean,
+      default: true,
+    },
+    showCurrentDomain: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       refreshing: true,
@@ -137,8 +156,14 @@ export default {
 
       PasswordRepository.fetchPasswordList()
         .then(async (res) => {
-          this.passwordListCached = res.data;
-          this.passwordList = res.data;
+          if (this.showCurrentDomain) {
+            res.data = await filterPassword(res.data);
+            this.passwordListCached = res.data;
+            this.passwordList = res.data;
+          } else {
+            this.passwordListCached = res.data;
+            this.passwordList = res.data;
+          }
         })
         .finally(() => (this.refreshing = false));
     },
@@ -197,11 +222,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.AllPasswordItem {
+.PasswordList {
   height: 33rem;
-  max-height: 33rem;
 
-  .password-list {
+  .password-list-warp {
     height: 78%;
     overflow: hidden;
 
@@ -212,7 +236,13 @@ export default {
       overflow-y: auto;
     }
 
-    .password-list-item {
+    .password-list-warp-item {
+      &.not-checkbox {
+        /deep/ .van-checkbox__icon {
+          display: none;
+        }
+      }
+
       /deep/ .van-checkbox__label {
         width: 100%;
       }

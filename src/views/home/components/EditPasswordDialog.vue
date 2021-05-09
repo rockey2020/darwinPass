@@ -1,5 +1,5 @@
 <template>
-  <div class="EditPasswordItemDialog">
+  <div class="EditPasswordDialog">
     <van-dialog
       v-model:show="visible"
       theme="round-button"
@@ -79,7 +79,7 @@
 import PasswordRepository from "@/network/module/user/repository/PasswordRepository";
 
 export default {
-  name: "EditPasswordItemDialog",
+  name: "EditPasswordDialog",
   props: {
     show: {
       type: Boolean,
@@ -154,9 +154,9 @@ export default {
   methods: {
     async updatePassword() {
       this.$refs.vanForm.validate().then(() => {
-        PasswordRepository.updatePassword(this.formData).then(
-          () => (this.visible = false)
-        );
+        PasswordRepository.updatePassword(this.formData)
+          .then(() => (this.visible = false))
+          .finally(() => this.$emit("success"));
       });
     },
   },
@@ -164,6 +164,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.EditPasswordItemDialog {
+.EditPasswordDialog {
 }
 </style>
