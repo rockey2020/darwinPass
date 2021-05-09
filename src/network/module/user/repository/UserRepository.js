@@ -7,12 +7,22 @@ class UserRepository {
     return request.fetchUser().then((res) => new User(res));
   }
 
-  static login(params) {
-    return request.login(params);
+  static login({ email = "", password = "", servicePlatformType = null } = {}) {
+    return request.login({ email: "" });
   }
 
-  static updateUser(params) {
-    return request.updateUser(params);
+  static updateUser({
+    id = null,
+    username = "",
+    email = "",
+    maxIdleTime = 0,
+  } = {}) {
+    return request.updateUser({
+      id: null,
+      username: "",
+      email: "",
+      maxIdleTime: 0,
+    });
   }
 }
 

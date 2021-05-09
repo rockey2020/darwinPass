@@ -2,13 +2,13 @@ import { ServicePlatformTypeFront } from "@/network/common/constant/servicePlatf
 
 class User {
   constructor({
-    id = "",
+    id = null,
     username = "",
     email = "",
     maxIdleTime = 0,
-    servicePlatformType = 0,
+    servicePlatformType = null,
     //自定义字段
-    servicePlatformTypeText = "",
+    servicePlatformTypeText = null,
   } = {}) {
     this.id = id;
     this.username = username;

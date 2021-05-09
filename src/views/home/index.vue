@@ -64,7 +64,7 @@ export default {
   },
   data() {
     return {
-      activeCollapseNames: ["4"],
+      activeCollapseNames: ["AllPasswordItem"],
       refreshing: false,
       passwordList: [],
       showPasswordItemViewDialog: false,
