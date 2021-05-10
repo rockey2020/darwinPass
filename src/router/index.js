@@ -27,7 +27,7 @@ const routes = [
   {
     path: "/:pathMatch(.*)*",
     name: "404",
-    redirect: { name: "home" },
+    redirect: { name: "notFound" },
   },
 ];
 
