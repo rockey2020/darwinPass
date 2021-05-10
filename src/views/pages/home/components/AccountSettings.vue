@@ -105,10 +105,11 @@ export default {
   name: "AccountSettings",
   data() {
     const required = { required: true, message: "不能为空" };
-    //请输入10~20位至少两种类型的字符,仅允许数字、字母和标点符号
+    //请输入10~20位至少两种类型的字符,仅允许数字、字母,中文和标点符号
     const passwordRegex = /^(?![0-9]+$)(?![a-zA-Z]+$)(?!([^(0-9a-zA-Z)])+$).{6,20}$/;
     const password = {
-      message: "请输入10~20位至少两种类型的字符,仅允许数字、字母和标点符号",
+      message:
+        "请输入10~20位至少两种类型的字符,仅允许数字、字母,中文和标点符号",
       validator: (value, rule) => {
         //vant 表单无论required是否为true  都会进行校验
         const required = false;

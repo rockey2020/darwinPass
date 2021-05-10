@@ -2,6 +2,7 @@
   <div class="Login">
     <div
       class="da-flex da-flex-fixed da-flex-fixed-top da-flex-fixed-bottom da-flex-fixed-left da-flex-fixed-right"
+      style="background-color: unset"
     >
       <div
         class="da-flex da-flex-align-center da-flex-justify-center da-flex-column da-flex-relative content-warp"
