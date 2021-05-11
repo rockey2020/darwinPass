@@ -109,6 +109,7 @@ export default {
 <style lang="less" scoped>
 .LoginForm {
   width: 100%;
+  margin-bottom: 2rem;
 
   .vanForm {
     /deep/ .van-cell {
