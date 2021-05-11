@@ -1,5 +1,8 @@
 <template>
   <div class="LoginForm">
+    <service-platform-popup
+      :show="isShowServicePlatformPopup"
+    ></service-platform-popup>
     <van-form
       ref="vanForm"
       label-width="0px"
@@ -28,8 +31,9 @@
           showPasswordController.password = !showPasswordController.password
         "
         :rules="rules.password"
-        ><template #label><span class="label">密码</span></template></van-field
       >
+        <template #label><span class="label">密码</span></template>
+      </van-field>
 
       <div class="da-flex da-flex-justify-center">
         <van-button type="primary" class="submit" @click="submit()"
@@ -42,9 +46,11 @@
 
 <script>
 import UserRepository from "@/network/module/user/repository/UserRepository";
+import ServicePlatformPopup from "@/views/components/servicePlatformPopup";
 
 export default {
   name: "LoginForm",
+  components: { ServicePlatformPopup },
   data() {
     const required = { required: true, message: "不能为空" };
     //请输入10~20位至少两种类型的字符,仅允许数字、字母,中文和标点符号
@@ -74,6 +80,7 @@ export default {
         email: "",
         password: "",
       },
+      isShowServicePlatformPopup: true,
     };
   },
   methods: {
@@ -115,7 +122,7 @@ export default {
       color: #60bcb9;
     }
 
-    /deep/.van-field__control {
+    /deep/ .van-field__control {
       &::placeholder {
         color: #60bcb9;
       }
