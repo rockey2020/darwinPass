@@ -12,11 +12,15 @@
           <span>达尔文密码管理器 v{{ version }}</span>
         </div>
         <div class="da-flex">
-          <login-form></login-form>
+          <login-form v-if="showLoginForm"></login-form>
+          <forgot-password-form v-else></forgot-password-form>
         </div>
         <div class="da-flex da-flex-column da-flex-align-end bottom-nav">
           <div class="da-flex da-flex-inline bottom-nav-item">
-            <span @click="showForgotPassword">忘记密码?</span>
+            <span @click="showLoginForm = false" v-if="showLoginForm"
+              >忘记密码?</span
+            >
+            <span @click="showLoginForm = true" v-else>去登陆</span>
           </div>
           <div class="da-flex da-flex-inline bottom-nav-item">
             <router-link to="/about">关于我们</router-link>
@@ -28,22 +32,19 @@
 </template>
 
 <script>
+import ForgotPasswordForm from "@/views/default/login/components/ForgotPasswordForm";
 import LoginForm from "@/views/default/login/components/LoginForm";
 
 import packageInfo from "../../../../package.json";
 
 export default {
   name: "Login",
-  components: { LoginForm },
+  components: { ForgotPasswordForm, LoginForm },
   data() {
     return {
       version: packageInfo.version,
+      showLoginForm: false,
     };
-  },
-  methods: {
-    async showForgotPassword() {
-      console.log(1);
-    },
   },
 };
 </script>

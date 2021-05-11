@@ -47,7 +47,7 @@ router.beforeEach(async (to, from, next) => {
   //取消所有准备执行的请求
   Manage.clearRequestQueue();
   //是否登录判断
-  if (!UserRepository.isLogin() && !whitelist.includes(to.name)) {
+  if (!UserRepository.isLogin() && !whitelist.includes(to.name || to.path)) {
     return next({ name: "login" });
   }
   next();
