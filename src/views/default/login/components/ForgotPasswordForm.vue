@@ -1,11 +1,5 @@
 <template>
   <div class="ForgotPasswordForm">
-    <service-platform-popup
-      :selected-id="formData.servicePlatformType"
-      :show="isShowServicePlatformPopup"
-      @onSelected="(val) => (formData.servicePlatformType = val.id)"
-      @update:show="isShowServicePlatformPopup = false"
-    ></service-platform-popup>
     <van-form
       ref="vanForm"
       label-width="0px"
@@ -26,9 +20,9 @@
       <van-field
         clearable
         clickable
-        v-model="formData.email"
-        :rules="rules.email"
-        placeholder="请输入邮箱"
+        v-model="formData.captcha"
+        :rules="rules.captcha"
+        placeholder="请输入邮箱验证码"
       >
         <template #label><span class="label">邮箱验证码</span></template>
       </van-field>
@@ -38,32 +32,19 @@
         clickable
         v-model.trim="formData.password"
         :type="showPasswordController.password ? 'text' : 'password'"
-        placeholder="请输入密码"
+        placeholder="请输入新密码"
         :right-icon="showPasswordController.password ? 'eye-o' : 'closed-eye'"
         @click-right-icon="
           showPasswordController.password = !showPasswordController.password
         "
         :rules="rules.password"
       >
-        <template #label><span class="label">密码</span></template>
-      </van-field>
-
-      <van-field
-        clearable
-        clickable
-        disabled
-        readonly
-        v-model.number="ServicePlatformTypeFront[formData.servicePlatformType]"
-        :rules="rules.servicePlatformType"
-        placeholder="请选择数据服务平台"
-        @click="isShowServicePlatformPopup = true"
-      >
-        <template #label><span class="label">数据服务平台</span></template>
+        <template #label><span class="label">新密码</span></template>
       </van-field>
 
       <div class="da-flex da-flex-justify-center">
         <van-button type="primary" class="submit" @click="submit"
-          >登录
+          >提交
         </van-button>
       </div>
     </van-form>
@@ -71,33 +52,23 @@
 </template>
 
 <script>
-import {
-  ServicePlatformType,
-  ServicePlatformTypeFront,
-} from "@/network/common/constant/ServicePlatformConstant";
 import UserRepository from "@/network/module/user/repository/UserRepository";
 import regexRules from "@/utils/regexRules";
-import ServicePlatformPopup from "@/views/components/servicePlatformPopup";
 
 export default {
   name: "ForgotPasswordForm",
-  components: { ServicePlatformPopup },
   data() {
     const rules = regexRules.rules;
-    const showPasswordController = {
-      password: false,
-    };
-
     return {
       rules,
-      showPasswordController,
+      showPasswordController: {
+        password: false,
+      },
       formData: {
         email: "",
         password: "",
-        servicePlatformType: ServicePlatformType.DarwinPassService,
+        captcha: "",
       },
-      ServicePlatformTypeFront,
-      isShowServicePlatformPopup: false,
     };
   },
   methods: {
@@ -105,10 +76,10 @@ export default {
       this.$refs.vanForm.validate().then(() => {
         UserRepository.login(this.formData)
           .makeResponseStatusMessage({
-            message: "登录",
+            message: "找回密码",
           })
           .then((e) => {
-            this.$router.replace({ name: "home" });
+            this.$emit("success");
           });
       });
     },

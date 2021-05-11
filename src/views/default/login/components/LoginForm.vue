@@ -61,10 +61,7 @@
 </template>
 
 <script>
-import {
-  ServicePlatformType,
-  ServicePlatformTypeFront,
-} from "@/network/common/constant/ServicePlatformConstant";
+import { ServicePlatformTypeFront } from "@/network/common/constant/ServicePlatformConstant";
 import UserRepository from "@/network/module/user/repository/UserRepository";
 import regexRules from "@/utils/regexRules";
 import ServicePlatformPopup from "@/views/components/servicePlatformPopup";
@@ -84,7 +81,7 @@ export default {
       formData: {
         email: "",
         password: "",
-        servicePlatformType: ServicePlatformType.DarwinPassService,
+        servicePlatformType: null,
       },
       ServicePlatformTypeFront,
       isShowServicePlatformPopup: false,
@@ -98,7 +95,7 @@ export default {
             message: "登录",
           })
           .then((e) => {
-            this.$router.replace({ name: "home" });
+            this.$emit("success");
           });
       });
     },

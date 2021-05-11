@@ -32,6 +32,10 @@ class UserRepository {
       });
   }
 
+  static forgotPassword({ email = "", password = "", captcha = "" } = {}) {
+    return request.login({ email, password, captcha });
+  }
+
   static updateUser({
     id = null,
     username = "",

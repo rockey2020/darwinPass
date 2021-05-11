@@ -12,8 +12,8 @@
           <span>达尔文密码管理器 v{{ version }}</span>
         </div>
         <div class="da-flex">
-          <login-form v-if="showLoginForm"></login-form>
-          <forgot-password-form v-else></forgot-password-form>
+          <login-form v-if="showLoginForm" @success="toHome"></login-form>
+          <forgot-password-form @success="toHome" v-else></forgot-password-form>
         </div>
         <div class="da-flex da-flex-column da-flex-align-end bottom-nav">
           <div class="da-flex da-flex-inline bottom-nav-item">
@@ -45,6 +45,11 @@ export default {
       version: packageInfo.version,
       showLoginForm: false,
     };
+  },
+  methods: {
+    async toHome() {
+      this.$router.replace({ name: "home" });
+    },
   },
 };
 </script>
