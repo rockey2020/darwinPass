@@ -1,7 +1,10 @@
 <template>
   <div class="LoginForm">
     <service-platform-popup
+      :selected-id="formData.servicePlatformType"
       :show="isShowServicePlatformPopup"
+      @onSelected="(val) => (formData.servicePlatformType = val.id)"
+      @update:show="isShowServicePlatformPopup = false"
     ></service-platform-popup>
     <van-form
       ref="vanForm"
@@ -35,8 +38,21 @@
         <template #label><span class="label">密码</span></template>
       </van-field>
 
+      <van-field
+        clearable
+        clickable
+        disabled
+        readonly
+        v-model.number="ServicePlatformTypeFront[formData.servicePlatformType]"
+        :rules="rules.servicePlatformType"
+        placeholder="请选择数据服务平台"
+        @click="isShowServicePlatformPopup = true"
+      >
+        <template #label><span class="label">数据服务平台</span></template>
+      </van-field>
+
       <div class="da-flex da-flex-justify-center">
-        <van-button type="primary" class="submit" @click="submit()"
+        <van-button type="primary" class="submit" @click="submit"
           >登录
         </van-button>
       </div>
@@ -45,6 +61,10 @@
 </template>
 
 <script>
+import {
+  ServicePlatformType,
+  ServicePlatformTypeFront,
+} from "@/network/common/constant/ServicePlatformConstant";
 import UserRepository from "@/network/module/user/repository/UserRepository";
 import ServicePlatformPopup from "@/views/components/servicePlatformPopup";
 
@@ -69,6 +89,7 @@ export default {
     const rules = {
       email: [required],
       password: [required, password],
+      servicePlatformType: [required],
     };
     const showPasswordController = {
       password: false,
@@ -79,8 +100,10 @@ export default {
       formData: {
         email: "",
         password: "",
+        servicePlatformType: ServicePlatformType.DarwinPassService,
       },
-      isShowServicePlatformPopup: true,
+      ServicePlatformTypeFront,
+      isShowServicePlatformPopup: false,
     };
   },
   methods: {

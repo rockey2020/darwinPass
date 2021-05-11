@@ -90,7 +90,7 @@
       />
 
       <div class="da-flex da-flex-justify-center">
-        <van-button type="primary" class="submit" @click="submit()"
+        <van-button type="primary" class="submit" @click="submit"
           >更新
         </van-button>
       </div>

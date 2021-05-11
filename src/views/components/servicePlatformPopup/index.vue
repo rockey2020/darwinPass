@@ -46,7 +46,9 @@ export default {
       this.visible = this.show;
     },
     async visible() {
-      this.$emit("update:show", this.visible);
+      if (this.show !== this.visible) {
+        this.$emit("update:show", this.visible);
+      }
     },
   },
   methods: {

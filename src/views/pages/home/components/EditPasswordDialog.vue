@@ -144,7 +144,9 @@ export default {
       }
     },
     async visible() {
-      this.$emit("update:show", this.visible);
+      if (this.show !== this.visible) {
+        this.$emit("update:show", this.visible);
+      }
     },
     async "formData.url"() {
       this.formData.url = this.formData.url.replace(/\r\n/g, "");
