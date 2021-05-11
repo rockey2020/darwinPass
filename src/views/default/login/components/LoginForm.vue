@@ -98,7 +98,7 @@ export default {
             message: "登录",
           })
           .then((e) => {
-            console.log(e);
+            this.$router.replace({ name: "home" });
           });
       });
     },

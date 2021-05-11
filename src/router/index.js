@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 import Manage from "@/network/manage";
+import UserRepository from "@/network/module/user/repository/UserRepository";
 
 const baseLayout = () => import("../layout/baseLayout");
 
@@ -43,6 +44,10 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   //取消所有准备执行的请求
   Manage.clearRequestQueue();
+  //是否登录判断
+  if (!UserRepository.isLogin() && to.name !== "login") {
+    return next({ name: "login" });
+  }
   next();
 });
 

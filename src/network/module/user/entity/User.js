@@ -7,6 +7,7 @@ class User {
     email = "",
     maxIdleTime = 0,
     servicePlatformType = null,
+    authorization = "",
     //自定义字段
     servicePlatformTypeText = null,
   } = {}) {
@@ -15,6 +16,7 @@ class User {
     this.email = email;
     this.maxIdleTime = maxIdleTime;
     this.servicePlatformType = servicePlatformType;
+    this.authorization = authorization;
 
     //自定义字段
     this.servicePlatformTypeText = servicePlatformTypeText;
