@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       version: packageInfo.version,
-      showLoginForm: false,
+      showLoginForm: true,
     };
   },
   methods: {
