@@ -13,7 +13,10 @@
         </div>
         <div class="da-flex">
           <login-form v-if="showLoginForm" @success="toHome"></login-form>
-          <forgot-password-form @success="toHome" v-else></forgot-password-form>
+          <forgot-password-form
+            @success="showLoginForm = true"
+            v-else
+          ></forgot-password-form>
         </div>
         <div class="da-flex da-flex-column da-flex-align-end bottom-nav">
           <div class="da-flex da-flex-inline bottom-nav-item">

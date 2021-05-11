@@ -28,6 +28,15 @@ export const login = (params) => {
     .send();
 };
 
+export const forgotPassword = (params) => {
+  return new Manage()
+    .setMethod(Manage.GET)
+    .setUrl("/")
+    .setParams(params)
+    .setResponseFilter(DefaultFilter)
+    .send();
+};
+
 export const updateUser = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
@@ -73,5 +82,16 @@ export const deletePasswordList = (params) => {
     .setUrl("/")
     .setParams(params)
     .setResponseFilter(EmptyDefaultFilter)
+    .send();
+};
+
+//---------- 验证码管理 ----------
+
+export const fetchCaptchaByEmail = (params) => {
+  return new Manage()
+    .setMethod(Manage.POST)
+    .setUrl("/")
+    .setParams(params)
+    .setResponseFilter(DefaultFilter)
     .send();
 };

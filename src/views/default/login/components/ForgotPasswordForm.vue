@@ -15,6 +15,17 @@
         placeholder="请输入邮箱"
       >
         <template #label><span class="label">邮箱</span></template>
+        <template #button>
+          <van-button
+            size="small"
+            :disabled="isSend"
+            @click="sendCaptcha"
+            type="warning"
+          >
+            <span v-if="!isSend">发送验证码</span>
+            <span v-else>{{ countDown }}</span>
+          </van-button>
+        </template>
       </van-field>
 
       <van-field
@@ -52,6 +63,7 @@
 </template>
 
 <script>
+import CaptchaRepository from "@/network/module/user/repository/CaptchaRepository";
 import UserRepository from "@/network/module/user/repository/UserRepository";
 import regexRules from "@/utils/regexRules";
 
@@ -68,13 +80,43 @@ export default {
         email: "",
         password: "",
         captcha: "",
+        captchaId: "",
       },
+      isSend: false,
+      countDown: 0,
+      countDownInterval: null,
     };
   },
   methods: {
+    async startCountDown() {
+      const baseTime = 60; //60秒
+      clearInterval(this.countDownInterval);
+      this.countDown = baseTime;
+      this.countDownInterval = setInterval(async () => {
+        if (this.countDown <= 0) {
+          this.countDown = 0;
+          this.isSend = false;
+          clearInterval(this.countDownInterval);
+          this.countDownInterval = null;
+        } else {
+          this.countDown--;
+        }
+      }, 1000);
+    },
+    async sendCaptcha() {
+      if (this.isSend) return;
+      CaptchaRepository.fetchCaptchaByEmail({
+        email: this.formData.email,
+      })
+        .makeResponseStatusMessage({ message: "发送验证码" })
+        .then(() => {
+          this.isSend = true;
+          this.startCountDown();
+        });
+    },
     async submit() {
       this.$refs.vanForm.validate().then(() => {
-        UserRepository.login(this.formData)
+        UserRepository.forgotPassword(this.formData)
           .makeResponseStatusMessage({
             message: "找回密码",
           })
