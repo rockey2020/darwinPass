@@ -7,7 +7,9 @@
       <div
         class="da-flex da-flex-align-center da-flex-justify-center da-flex-column da-flex-relative content-warp"
       >
-        <div class="da-flex da-flex-justify-center logo"><span>登录</span></div>
+        <div class="da-flex da-flex-justify-center logo">
+          <span>{{ title[formPanelKey] }}</span>
+        </div>
         <div class="da-flex da-flex-justify-center system-name">
           <span>达尔文密码管理器 v{{ version }}</span>
         </div>
@@ -24,21 +26,9 @@
         </div>
         <div class="da-flex da-flex-column da-flex-align-end bottom-nav">
           <div class="da-flex da-flex-column da-flex-inline bottom-nav-item">
-            <span
-              @click="formPanelKey = 1"
-              v-if="formPanelKey === 2 || formPanelKey === 3"
-              >去登陆</span
-            >
-            <span
-              @click="formPanelKey = 2"
-              v-if="formPanelKey === 1 || formPanelKey === 3"
-              >忘记密码?</span
-            >
-            <span
-              @click="formPanelKey = 3"
-              v-if="formPanelKey === 1 || formPanelKey === 2"
-              >去注册</span
-            >
+            <span @click="formPanelKey = 1">去登陆</span>
+            <span @click="formPanelKey = 3">去注册</span>
+            <span @click="formPanelKey = 2">忘记密码?</span>
           </div>
           <div class="da-flex da-flex-inline bottom-nav-item">
             <router-link to="/about">关于我们</router-link>
@@ -64,6 +54,11 @@ export default {
       version: packageInfo.version,
       //1:登录 2:忘记密码 3:注册
       formPanelKey: 1,
+      title: {
+        1: "登录",
+        2: "忘记密码",
+        3: "注册",
+      },
     };
   },
   methods: {
