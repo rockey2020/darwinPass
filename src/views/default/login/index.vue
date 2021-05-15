@@ -24,13 +24,11 @@
             @success="formPanelKey = 1"
           ></register-form>
         </div>
-        <div class="da-flex da-flex-column da-flex-align-end bottom-nav">
-          <div class="da-flex da-flex-column da-flex-inline bottom-nav-item">
+        <div class="da-flex da-flex-justify-space-around bottom-nav">
+          <div class="da-flex da-flex-justify-space-around bottom-nav-item">
             <span @click="formPanelKey = 1">去登陆</span>
             <span @click="formPanelKey = 3">去注册</span>
             <span @click="formPanelKey = 2">忘记密码?</span>
-          </div>
-          <div class="da-flex da-flex-inline bottom-nav-item">
             <router-link to="/about">关于我们</router-link>
           </div>
         </div>
@@ -95,7 +93,7 @@ export default {
     a,
     span {
       color: @60bcb9;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: bold;
     }
 
