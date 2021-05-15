@@ -43,7 +43,7 @@ const clearRequestQueue = () => {
 };
 
 const axiosInstance = axios.create({
-  baseURL: "/",
+  baseURL: "http://127.0.0.1:48480/",
   timeout: 10000,
 });
 

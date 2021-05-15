@@ -7,22 +7,25 @@ import {
   ListDefaultFilter,
 } from "../responseFilter";
 
+const userRequestPrefix = "/user/";
+const passwordRequestPrefix = "/password/";
+const captchaRequestPrefix = "/captcha/";
+
 //---------- 用户管理 ----------
 
 export const fetchUser = (params) => {
   return new Manage()
     .setMethod(Manage.GET)
-    .setUrl("/")
+    .setUrl(`${userRequestPrefix}fetchUser`)
     .setParams(params)
     .setResponseFilter(DefaultFilter)
-    .setRequestMocker(UserMocker)
     .send();
 };
 
 export const login = (params) => {
   return new Manage()
     .setMethod(Manage.GET)
-    .setUrl("/")
+    .setUrl(`${userRequestPrefix}login`)
     .setParams(params)
     .setResponseFilter(DefaultFilter)
     .send();
@@ -31,7 +34,7 @@ export const login = (params) => {
 export const forgotPassword = (params) => {
   return new Manage()
     .setMethod(Manage.GET)
-    .setUrl("/")
+    .setUrl(`${userRequestPrefix}forgotPassword`)
     .setParams(params)
     .setResponseFilter(DefaultFilter)
     .send();
@@ -40,7 +43,7 @@ export const forgotPassword = (params) => {
 export const updateUser = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
-    .setUrl("/")
+    .setUrl(`${userRequestPrefix}updateUser`)
     .setParams(params)
     .setResponseFilter(EmptyDefaultFilter)
     .send();
@@ -51,7 +54,7 @@ export const updateUser = (params) => {
 export const fetchPasswordList = (params) => {
   return new Manage()
     .setMethod(Manage.GET)
-    .setUrl("/")
+    .setUrl(`${passwordRequestPrefix}fetchPasswordList`)
     .setParams(params)
     .setResponseFilter(ListDefaultFilter)
     .setRequestMocker(PasswordListMocker)
@@ -61,7 +64,7 @@ export const fetchPasswordList = (params) => {
 export const createPassword = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
-    .setUrl("/")
+    .setUrl(`${passwordRequestPrefix}createPassword`)
     .setParams(params)
     .setResponseFilter(EmptyDefaultFilter)
     .send();
@@ -70,7 +73,7 @@ export const createPassword = (params) => {
 export const updatePassword = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
-    .setUrl("/")
+    .setUrl(`${passwordRequestPrefix}updatePassword`)
     .setParams(params)
     .setResponseFilter(EmptyDefaultFilter)
     .send();
@@ -79,7 +82,7 @@ export const updatePassword = (params) => {
 export const deletePasswordList = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
-    .setUrl("/")
+    .setUrl(`${passwordRequestPrefix}deletePasswordList`)
     .setParams(params)
     .setResponseFilter(EmptyDefaultFilter)
     .send();
@@ -90,7 +93,7 @@ export const deletePasswordList = (params) => {
 export const fetchCaptchaByEmail = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
-    .setUrl("/")
+    .setUrl(`${captchaRequestPrefix}fetchCaptchaByEmail`)
     .setParams(params)
     .setResponseFilter(DefaultFilter)
     .send();

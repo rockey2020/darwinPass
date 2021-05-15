@@ -12,18 +12,33 @@
           <span>达尔文密码管理器 v{{ version }}</span>
         </div>
         <div class="da-flex">
-          <login-form v-if="showLoginForm" @success="toHome"></login-form>
+          <login-form v-if="formPanelKey === 1" @success="toHome"></login-form>
           <forgot-password-form
-            @success="showLoginForm = true"
-            v-else
+            @success="formPanelKey = 1"
+            v-if="formPanelKey === 2"
           ></forgot-password-form>
+          <register-form
+            v-if="formPanelKey === 3"
+            @success="formPanelKey = 1"
+          ></register-form>
         </div>
         <div class="da-flex da-flex-column da-flex-align-end bottom-nav">
-          <div class="da-flex da-flex-inline bottom-nav-item">
-            <span @click="showLoginForm = false" v-if="showLoginForm"
+          <div class="da-flex da-flex-column da-flex-inline bottom-nav-item">
+            <span
+              @click="formPanelKey = 1"
+              v-if="formPanelKey === 2 || formPanelKey === 3"
+              >去登陆</span
+            >
+            <span
+              @click="formPanelKey = 2"
+              v-if="formPanelKey === 1 || formPanelKey === 3"
               >忘记密码?</span
             >
-            <span @click="showLoginForm = true" v-else>去登陆</span>
+            <span
+              @click="formPanelKey = 3"
+              v-if="formPanelKey === 1 || formPanelKey === 2"
+              >去注册</span
+            >
           </div>
           <div class="da-flex da-flex-inline bottom-nav-item">
             <router-link to="/about">关于我们</router-link>
@@ -37,16 +52,18 @@
 <script>
 import ForgotPasswordForm from "@/views/default/login/components/ForgotPasswordForm";
 import LoginForm from "@/views/default/login/components/LoginForm";
+import RegisterForm from "@/views/default/login/components/RegisterForm";
 
 import packageInfo from "../../../../package.json";
 
 export default {
   name: "Login",
-  components: { ForgotPasswordForm, LoginForm },
+  components: { RegisterForm, ForgotPasswordForm, LoginForm },
   data() {
     return {
       version: packageInfo.version,
-      showLoginForm: true,
+      //1:登录 2:忘记密码 3:注册
+      formPanelKey: 1,
     };
   },
   methods: {
@@ -88,7 +105,6 @@ export default {
     }
 
     .bottom-nav-item {
-      height: 2.5rem;
     }
   }
 }
