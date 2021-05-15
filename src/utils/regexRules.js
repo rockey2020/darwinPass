@@ -30,7 +30,7 @@ const regexRules = {
     oldPassword: [password],
     newPassword: [password],
     newPassword2: [password],
-    captchaCode: [password],
+    captchaCode: [required],
   },
 };
 

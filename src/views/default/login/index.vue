@@ -1,8 +1,8 @@
 <template>
   <div class="Login">
     <div
-      class="da-flex da-flex-fixed da-flex-fixed-top da-flex-fixed-bottom da-flex-fixed-left da-flex-fixed-right"
-      style="background-color: unset"
+      class="da-flex da-flex-fixed da-flex-fixed-top da-flex-fixed-bottom da-flex-fixed-left da-flex-fixed-right da-flex-align-start"
+      style="background-color: unset; overflow-y: auto"
     >
       <div
         class="da-flex da-flex-align-center da-flex-justify-center da-flex-column da-flex-relative content-warp"
@@ -51,7 +51,7 @@ export default {
     return {
       version: packageInfo.version,
       //1:登录 2:忘记密码 3:注册
-      formPanelKey: 1,
+      formPanelKey: 3,
       title: {
         1: "登录",
         2: "忘记密码",
@@ -76,6 +76,7 @@ export default {
 
   .content-warp {
     padding: 0 3rem;
+    padding-top: 3rem;
   }
 
   .logo {
@@ -98,6 +99,7 @@ export default {
     }
 
     .bottom-nav-item {
+      cursor: pointer;
     }
   }
 }

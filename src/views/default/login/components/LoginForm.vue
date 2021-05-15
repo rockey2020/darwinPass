@@ -112,8 +112,8 @@ export default {
     /deep/ .van-cell {
       background-color: unset;
       overflow: unset;
-      margin-bottom: 3rem;
-      margin-top: 5rem;
+      margin-bottom: 2rem;
+      margin-top: 3rem;
 
       &::after {
         border-bottom: 1px solid #a2dcda;

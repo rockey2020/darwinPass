@@ -24,7 +24,7 @@ export const fetchUser = (params) => {
 
 export const login = (params) => {
   return new Manage()
-    .setMethod(Manage.GET)
+    .setMethod(Manage.POST)
     .setUrl(`${userRequestPrefix}login`)
     .setParams(params)
     .setResponseFilter(DefaultFilter)
@@ -33,8 +33,17 @@ export const login = (params) => {
 
 export const forgotPassword = (params) => {
   return new Manage()
-    .setMethod(Manage.GET)
+    .setMethod(Manage.POST)
     .setUrl(`${userRequestPrefix}forgotPassword`)
+    .setParams(params)
+    .setResponseFilter(DefaultFilter)
+    .send();
+};
+
+export const register = (params) => {
+  return new Manage()
+    .setMethod(Manage.POST)
+    .setUrl(`${userRequestPrefix}register`)
     .setParams(params)
     .setResponseFilter(DefaultFilter)
     .send();

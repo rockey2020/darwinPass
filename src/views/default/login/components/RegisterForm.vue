@@ -41,16 +41,41 @@
       <van-field
         clearable
         clickable
+        v-model="formData.username"
+        :rules="rules.username"
+        placeholder="请输入用户名"
+      >
+        <template #label><span class="label">用户名</span></template>
+      </van-field>
+
+      <van-field
+        clearable
+        clickable
         v-model.trim="formData.password"
         :type="showPasswordController.password ? 'text' : 'password'"
-        placeholder="请输入新密码"
+        placeholder="请输入密码"
         :right-icon="showPasswordController.password ? 'eye-o' : 'closed-eye'"
         @click-right-icon="
           showPasswordController.password = !showPasswordController.password
         "
         :rules="rules.password"
       >
-        <template #label><span class="label">新密码</span></template>
+        <template #label><span class="label">密码</span></template>
+      </van-field>
+
+      <van-field
+        clearable
+        clickable
+        v-model.trim="formData.password2"
+        :type="showPasswordController.password2 ? 'text' : 'password'"
+        placeholder="二次输入密码"
+        :right-icon="showPasswordController.password2 ? 'eye-o' : 'closed-eye'"
+        @click-right-icon="
+          showPasswordController.password2 = !showPasswordController.password2
+        "
+        :rules="rules.password2"
+      >
+        <template #label><span class="label">二次输入密码</span></template>
       </van-field>
 
       <div class="da-flex da-flex-justify-center">
@@ -70,15 +95,28 @@ import regexRules from "@/utils/regexRules";
 export default {
   name: "RegisterForm",
   data() {
-    const rules = regexRules.rules;
+    const verifyPassword = {
+      message: "密码输入不一致",
+      validator: (value, rule) => {
+        if (value.length === 0) return false;
+        return value === this.formData.password;
+      },
+    };
+    const rules = {
+      ...regexRules.rules,
+      password2: [...regexRules.rules.newPassword2, verifyPassword],
+    };
     return {
       rules,
       showPasswordController: {
         password: false,
+        password2: false,
       },
       formData: {
         email: "",
+        username: "",
         password: "",
+        password2: "",
         captchaCode: "",
         captchaId: "",
       },
@@ -116,7 +154,7 @@ export default {
     },
     async submit() {
       this.$refs.vanForm.validate().then(() => {
-        UserRepository.forgotPassword(this.formData)
+        UserRepository.register(this.formData)
           .makeResponseStatusMessage({
             message: "找回密码",
           })
@@ -138,8 +176,8 @@ export default {
     /deep/ .van-cell {
       background-color: unset;
       overflow: unset;
-      margin-bottom: 3rem;
-      margin-top: 5rem;
+      margin-bottom: 2rem;
+      margin-top: 3rem;
 
       &::after {
         border-bottom: 1px solid #a2dcda;
