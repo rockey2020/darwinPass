@@ -31,8 +31,8 @@
       <van-field
         clearable
         clickable
-        v-model="formData.captcha"
-        :rules="rules.captcha"
+        v-model="formData.captchaCode"
+        :rules="rules.captchaCode"
         placeholder="请输入邮箱验证码"
       >
         <template #label><span class="label">邮箱验证码</span></template>
@@ -79,7 +79,7 @@ export default {
       formData: {
         email: "",
         password: "",
-        captcha: "",
+        captchaCode: "",
         captchaId: "",
       },
       isSend: false,
