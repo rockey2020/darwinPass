@@ -143,11 +143,12 @@ export default {
     },
     async sendCaptcha() {
       if (this.isSend) return;
-      CaptchaRepository.fetchCaptchaByEmail({
+      CaptchaRepository.fetchCaptchaCodeByEmail({
         email: this.formData.email,
       })
         .makeResponseStatusMessage({ message: "发送验证码" })
-        .then(() => {
+        .then((res) => {
+          this.formData.captchaId = res.id;
           this.isSend = true;
           this.startCountDown();
         });
@@ -156,7 +157,7 @@ export default {
       this.$refs.vanForm.validate().then(() => {
         UserRepository.register(this.formData)
           .makeResponseStatusMessage({
-            message: "找回密码",
+            message: "注册账号",
           })
           .then((e) => {
             this.$emit("success");

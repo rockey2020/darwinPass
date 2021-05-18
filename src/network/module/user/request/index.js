@@ -45,7 +45,7 @@ export const register = (params) => {
     .setMethod(Manage.POST)
     .setUrl(`${userRequestPrefix}register`)
     .setParams(params)
-    .setResponseFilter(DefaultFilter)
+    .setResponseFilter(EmptyDefaultFilter)
     .send();
 };
 
@@ -99,10 +99,10 @@ export const deletePasswordList = (params) => {
 
 //---------- 验证码管理 ----------
 
-export const fetchCaptchaByEmail = (params) => {
+export const fetchCaptchaCodeByEmail = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
-    .setUrl(`${captchaRequestPrefix}fetchCaptchaByEmail`)
+    .setUrl(`${captchaRequestPrefix}fetchCaptchaCodeByEmail`)
     .setParams(params)
     .setResponseFilter(DefaultFilter)
     .send();

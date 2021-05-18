@@ -3,10 +3,10 @@ import Captcha from "@/network/module/user/entity/Captcha";
 import * as request from "../request";
 
 class CaptchaRepository {
-  static fetchCaptchaByEmail({ email } = {}) {
+  static fetchCaptchaCodeByEmail({ email } = {}) {
     return request
-      .fetchCaptchaByEmail({ email })
-      .then((res) => new Captcha(res));
+      .fetchCaptchaCodeByEmail({ email })
+      .then((res) => new Captcha(res.data));
   }
 }
 

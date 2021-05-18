@@ -46,10 +46,10 @@ class UserRepository {
     password = "",
     captchaCode = "",
     captchaId = "",
-    maxIdleTime = "",
+    maxIdleTime = null,
     username = "",
   } = {}) {
-    return request.forgotPassword({
+    return request.register({
       email,
       password,
       captchaCode,

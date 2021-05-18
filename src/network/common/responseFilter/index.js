@@ -1,5 +1,5 @@
-export const DefaultFilter = async (response) => {
-  return response ?? {};
+export const DefaultFilter = async ({ data }) => {
+  return { data: data ?? {} };
 };
 
 export const ListDefaultFilter = async (response) => {

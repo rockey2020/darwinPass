@@ -1,6 +1,6 @@
 class Password {
-  constructor({ id = null } = {}) {
-    this.id = id;
+  constructor({ captchaId = null } = {}) {
+    this.id = captchaId;
 
     //自定义字段
 
