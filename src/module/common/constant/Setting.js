@@ -1,0 +1,1 @@
+export const DEFAULT_SERVICE_PLATFORM_URL = "http://127.0.0.1:48480";

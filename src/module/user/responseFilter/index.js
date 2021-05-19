@@ -2,6 +2,6 @@ import {
   DefaultFilter,
   EmptyDefaultFilter,
   ListDefaultFilter,
-} from "@/network/common/responseFilter";
+} from "@/module/common/responseFilter";
 
 export { DefaultFilter, EmptyDefaultFilter, ListDefaultFilter };

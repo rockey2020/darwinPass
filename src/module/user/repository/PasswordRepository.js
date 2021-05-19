@@ -1,4 +1,4 @@
-import Password from "@/network/module/user/entity/Password";
+import Password from "@/module/user/entity/Password";
 
 import * as request from "../request";
 

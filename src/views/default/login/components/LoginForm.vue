@@ -16,7 +16,7 @@
       <van-field
         clearable
         clickable
-        v-model="formData.email"
+        v-model.trim="formData.email"
         :rules="rules.email"
         placeholder="请输入邮箱"
       >
@@ -51,6 +51,17 @@
         <template #label><span class="label">数据服务平台</span></template>
       </van-field>
 
+      <van-field
+        clearable
+        clickable
+        v-model.trim="formData.servicePlatformUrl"
+        :rules="rules.servicePlatformUrl"
+        placeholder="请输入数据服务平台链接"
+        v-if="formData.servicePlatformType === ServicePlatformType.OtherService"
+      >
+        <template #label><span class="label">数据服务平台</span></template>
+      </van-field>
+
       <div class="da-flex da-flex-justify-center">
         <van-button type="primary" class="submit" @click="submit"
           >登录
@@ -61,8 +72,11 @@
 </template>
 
 <script>
-import { ServicePlatformTypeFront } from "@/network/common/constant/ServicePlatformConstant";
-import UserRepository from "@/network/module/user/repository/UserRepository";
+import {
+  ServicePlatformType,
+  ServicePlatformTypeFront,
+} from "@/module/common/constant/ServicePlatformConstant";
+import UserRepository from "@/module/user/repository/UserRepository";
 import regexRules from "@/utils/regexRules";
 import ServicePlatformPopup from "@/views/components/servicePlatformPopup";
 
@@ -70,7 +84,25 @@ export default {
   name: "LoginForm",
   components: { ServicePlatformPopup },
   data() {
-    const rules = regexRules.rules;
+    const rules = {
+      ...regexRules.rules,
+      servicePlatformUrl: [
+        {
+          message: "请输入第三方数据服务平台接口地址",
+          validator: (value, rule) => {
+            if (
+              this.formData.servicePlatformType ===
+                ServicePlatformType.OtherService &&
+              value.length === 0
+            ) {
+              return false;
+            } else {
+              return true;
+            }
+          },
+        },
+      ],
+    };
     const showPasswordController = {
       password: false,
     };
@@ -82,7 +114,9 @@ export default {
         email: "",
         password: "",
         servicePlatformType: null,
+        servicePlatformUrl: null,
       },
+      ServicePlatformType,
       ServicePlatformTypeFront,
       isShowServicePlatformPopup: false,
     };

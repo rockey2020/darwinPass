@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { ServicePlatformTypeFront } from "@/network/common/constant/ServicePlatformConstant";
+import { ServicePlatformTypeFront } from "@/module/common/constant/ServicePlatformConstant";
 
 export default {
   name: "ServicePlatformPopup",

@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import UserRepository from "@/network/module/user/repository/UserRepository";
+import UserRepository from "@/module/user/repository/UserRepository";
 
 export default {
   name: "AccountSettings",

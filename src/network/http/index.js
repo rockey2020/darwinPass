@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import store from "@/store";
+
 //准备执行的请求队列
 const requestQueue = new Map();
 
@@ -42,8 +44,10 @@ const clearRequestQueue = () => {
   requestQueue.clear();
 };
 
+const getBaseUrl = () => store.state.setting.servicePlatform.servicePlatformUrl;
+
 const axiosInstance = axios.create({
-  baseURL: "http://127.0.0.1:48480/",
+  baseURL: getBaseUrl(),
   timeout: 10000,
 });
 
@@ -69,6 +73,7 @@ axiosInstance.interceptors.response.use(
 
 export default {
   get({ url = "", params = {}, responseType = "json" }) {
+    url = getBaseUrl() + url;
     const queryConfig = {
       method: "get",
       url,
@@ -78,6 +83,7 @@ export default {
     return axiosInstance(queryConfig);
   },
   post({ url = "", params = {}, responseType = "json" }) {
+    url = getBaseUrl() + url;
     const queryConfig = {
       method: "post",
       url,
@@ -87,6 +93,7 @@ export default {
     return axiosInstance(queryConfig);
   },
   make({ method = "get", url = "", params = {}, responseType = "json" }) {
+    url = getBaseUrl() + url;
     const queryConfig = {
       method,
       url,

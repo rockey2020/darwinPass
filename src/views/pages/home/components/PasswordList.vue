@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import PasswordRepository from "@/network/module/user/repository/PasswordRepository";
+import PasswordRepository from "@/module/user/repository/PasswordRepository";
 import copyText from "@/utils/copyText";
 import filterPassword from "@/utils/filterPassword";
 import fuzzySearchPassword from "@/utils/fuzzySearchPassword";

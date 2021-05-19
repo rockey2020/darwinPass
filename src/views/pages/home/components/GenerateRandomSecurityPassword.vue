@@ -8,7 +8,7 @@
             clickable
             class="password"
             ref="password"
-            v-model="password"
+            v-model.trim="password"
           />
           <van-icon class="copy" name="records" @click="copyPassword" />
           <van-icon
@@ -82,7 +82,7 @@
 import {
   GeneratePasswordType,
   GeneratePasswordTypeFront,
-} from "@/network/common/constant/PasswordConstant";
+} from "@/module/common/constant/PasswordConstant";
 import copyText from "@/utils/copyText";
 import generateString from "@/utils/generateString";
 

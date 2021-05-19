@@ -1,5 +1,5 @@
+import { PasswordListMocker, UserMocker } from "@/module/user/mocker";
 import Manage from "@/network/manage";
-import { PasswordListMocker, UserMocker } from "@/network/module/user/mocker";
 
 import {
   DefaultFilter,

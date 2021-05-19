@@ -1,4 +1,4 @@
-import User from "@/network/module/user/entity/User";
+import User from "@/module/user/entity/User";
 import store from "@/store";
 
 import * as request from "../request";
@@ -20,16 +20,24 @@ class UserRepository {
   }
 
   static fetchUser() {
-    return request.fetchUser().then((res) => new User(res));
+    return request.fetchUser().then((res) => new User(res.data));
   }
 
-  static login({ email = "", password = "", servicePlatformType = null } = {}) {
-    return request
-      .login({ email, password, servicePlatformType })
-      .then((res) => {
-        UserRepository.saveUser(res);
-        return new User(res);
-      });
+  static login({
+    email = "",
+    password = "",
+    servicePlatformType = null,
+    servicePlatformUrl = null,
+  } = {}) {
+    store.dispatch("updateServicePlatform", {
+      servicePlatformType,
+      servicePlatformUrl,
+    });
+    return request.login({ email, password }).then((res) => {
+      const data = new User(res.data);
+      UserRepository.saveUser(data);
+      return data;
+    });
   }
 
   static forgotPassword({

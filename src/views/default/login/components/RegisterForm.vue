@@ -10,7 +10,7 @@
       <van-field
         clearable
         clickable
-        v-model="formData.email"
+        v-model.trim="formData.email"
         :rules="rules.email"
         placeholder="请输入邮箱"
       >
@@ -31,7 +31,7 @@
       <van-field
         clearable
         clickable
-        v-model="formData.captchaCode"
+        v-model.trim="formData.captchaCode"
         :rules="rules.captchaCode"
         placeholder="请输入邮箱验证码"
       >
@@ -41,7 +41,7 @@
       <van-field
         clearable
         clickable
-        v-model="formData.username"
+        v-model.trim="formData.username"
         :rules="rules.username"
         placeholder="请输入用户名"
       >
@@ -88,8 +88,8 @@
 </template>
 
 <script>
-import CaptchaRepository from "@/network/module/user/repository/CaptchaRepository";
-import UserRepository from "@/network/module/user/repository/UserRepository";
+import CaptchaRepository from "@/module/user/repository/CaptchaRepository";
+import UserRepository from "@/module/user/repository/UserRepository";
 import regexRules from "@/utils/regexRules";
 
 export default {

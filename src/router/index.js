@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
+import UserRepository from "@/module/user/repository/UserRepository";
 import Manage from "@/network/manage";
-import UserRepository from "@/network/module/user/repository/UserRepository";
 
 const baseLayout = () => import("../layout/baseLayout");
 

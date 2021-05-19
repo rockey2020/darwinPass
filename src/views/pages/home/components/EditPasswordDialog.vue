@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import PasswordRepository from "@/network/module/user/repository/PasswordRepository";
+import PasswordRepository from "@/module/user/repository/PasswordRepository";
 
 export default {
   name: "EditPasswordDialog",

@@ -1,4 +1,4 @@
-import Captcha from "@/network/module/user/entity/Captcha";
+import Captcha from "@/module/user/entity/Captcha";
 
 import * as request from "../request";
 

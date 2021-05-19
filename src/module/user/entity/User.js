@@ -1,4 +1,4 @@
-import { ServicePlatformTypeFront } from "@/network/common/constant/ServicePlatformConstant";
+import { ServicePlatformTypeFront } from "@/module/common/constant/ServicePlatformConstant";
 
 class User {
   constructor({
