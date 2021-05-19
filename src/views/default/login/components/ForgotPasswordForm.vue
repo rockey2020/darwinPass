@@ -109,7 +109,8 @@ export default {
         email: this.formData.email,
       })
         .makeResponseStatusMessage({ message: "发送验证码" })
-        .then(() => {
+        .then((res) => {
+          this.formData.captchaId = res.id;
           this.isSend = true;
           this.startCountDown();
         });
