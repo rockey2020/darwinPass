@@ -21,7 +21,7 @@ class UserRepository {
       "Bearer ",
       ""
     );
-    return authorization.trim().length !== 0;
+    return authorization.length !== 0;
   }
 
   static fetchUser() {
