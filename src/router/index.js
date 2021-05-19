@@ -45,7 +45,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   //取消所有准备执行的请求
-  Manage.clearRequestQueue();
+  await Manage.clearRequestQueue();
   //是否登录判断
   if (
     !(await UserRepository.isLogin()) &&
