@@ -5,13 +5,13 @@
       theme="round-button"
       show-cancel-button
       :title="type === 'edit' ? '编辑密码' : '添加密码'"
-      @confirm="() => (type ? updatePassword() : createPassword())"
+      @confirm="() => (type === 'edit' ? updatePassword() : createPassword())"
       :before-close="() => false"
       @cancel="() => (visible = false)"
     >
       <van-form
         ref="vanForm"
-        @submit="() => (type ? updatePassword() : createPassword())"
+        @submit="() => (type === 'edit' ? updatePassword() : createPassword())"
         label-width="5rem"
         colon
         show-error
@@ -156,7 +156,8 @@ export default {
   methods: {
     async createPassword() {
       this.$refs.vanForm.validate().then(() => {
-        PasswordRepository.createPassword(this.formData)
+        PasswordRepository.batchCreatePassword({ list: [this.formData] })
+          .makeResponseStatusMessage({ message: "创建密码" })
           .then(() => (this.visible = false))
           .finally(() => this.$emit("success"));
       });
@@ -164,6 +165,7 @@ export default {
     async updatePassword() {
       this.$refs.vanForm.validate().then(() => {
         PasswordRepository.updatePassword(this.formData)
+          .makeResponseStatusMessage({ message: "更新密码" })
           .then(() => (this.visible = false))
           .finally(() => this.$emit("success"));
       });

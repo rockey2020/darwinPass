@@ -71,8 +71,8 @@ export default {
       this.editPasswordItemDialogType = "add";
     },
     async onPasswordSuccess() {
-      this.$refs.allPassword.fetchPasswordList();
-      this.$refs.partPassword.fetchPasswordList();
+      this.$refs?.allPassword?.fetchPasswordList();
+      this.$refs?.partPassword?.fetchPasswordList();
     },
   },
 };

@@ -66,14 +66,13 @@ export const fetchPasswordList = (params) => {
     .setUrl(`${passwordRequestPrefix}fetchPasswordList`)
     .setParams(params)
     .setResponseFilter(ListDefaultFilter)
-    .setRequestMocker(PasswordListMocker)
     .send();
 };
 
-export const createPassword = (params) => {
+export const batchCreatePassword = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
-    .setUrl(`${passwordRequestPrefix}createPassword`)
+    .setUrl(`${passwordRequestPrefix}batchCreatePassword`)
     .setParams(params)
     .setResponseFilter(EmptyDefaultFilter)
     .send();

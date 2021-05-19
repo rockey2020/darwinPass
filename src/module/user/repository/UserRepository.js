@@ -12,11 +12,16 @@ class UserRepository {
     store.dispatch("updateUser", new User());
   }
 
-  static isLogin() {
-    return (
-      store.state.user.authorization &&
-      store.state.user.authorization.length !== 0
+  static async getAuthorization() {
+    return `Bearer ${store.state.user.authorization || ""}`;
+  }
+
+  static async isLogin() {
+    const authorization = (await UserRepository.getAuthorization()).replace(
+      "Bearer ",
+      ""
     );
+    return authorization.length !== 0;
   }
 
   static fetchUser() {

@@ -127,7 +127,7 @@ export default {
   },
   data() {
     return {
-      refreshing: true,
+      refreshing: false,
       showPasswordItemViewDialog: false,
       currentPasswordItem: {},
       passwordListCached: [],
@@ -159,7 +159,7 @@ export default {
       this.passwordListChecked = [];
     },
     async fetchPasswordList() {
-      if (!this.refreshing) return;
+      if (this.refreshing) return;
       this.passwordListChecked = [];
       this.refreshing = true;
 

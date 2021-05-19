@@ -1,5 +1,6 @@
 import axios from "axios";
 
+import UserRepository from "@/module/user/repository/UserRepository";
 import store from "@/store";
 
 //准备执行的请求队列
@@ -45,6 +46,7 @@ const clearRequestQueue = () => {
 };
 
 const getBaseUrl = () => store.state.setting.servicePlatform.servicePlatformUrl;
+const getAuthorization = () => UserRepository.getAuthorization();
 
 const axiosInstance = axios.create({
   baseURL: getBaseUrl(),
@@ -53,6 +55,8 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   async function (config) {
+    config.url = getBaseUrl() + config.url;
+    config.headers.authorization = await getAuthorization();
     addRequestQueue(config);
     return config;
   },
@@ -73,7 +77,6 @@ axiosInstance.interceptors.response.use(
 
 export default {
   get({ url = "", params = {}, responseType = "json" }) {
-    url = getBaseUrl() + url;
     const queryConfig = {
       method: "get",
       url,
@@ -83,7 +86,6 @@ export default {
     return axiosInstance(queryConfig);
   },
   post({ url = "", params = {}, responseType = "json" }) {
-    url = getBaseUrl() + url;
     const queryConfig = {
       method: "post",
       url,
@@ -93,7 +95,6 @@ export default {
     return axiosInstance(queryConfig);
   },
   make({ method = "get", url = "", params = {}, responseType = "json" }) {
-    url = getBaseUrl() + url;
     const queryConfig = {
       method,
       url,

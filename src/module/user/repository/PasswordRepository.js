@@ -21,15 +21,8 @@ class PasswordRepository {
     return request.updatePassword();
   }
 
-  static createPassword({
-    id = null,
-    url = "",
-    notes = "",
-    title = "",
-    username = "",
-    password = "",
-  } = {}) {
-    return request.createPassword();
+  static batchCreatePassword({ list } = {}) {
+    return request.batchCreatePassword({ list });
   }
 
   static deletePasswordList({ ids }) {

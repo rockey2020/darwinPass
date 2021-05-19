@@ -51,7 +51,7 @@ export default {
     return {
       version: packageInfo.version,
       //1:登录 2:忘记密码 3:注册
-      formPanelKey: 2,
+      formPanelKey: 1,
       title: {
         1: "登录",
         2: "忘记密码",
