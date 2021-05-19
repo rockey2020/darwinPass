@@ -51,48 +51,50 @@
         ref="checkboxGroup"
         v-model="passwordListChecked"
       >
-        <van-pull-refresh v-model="refreshing" @refresh="fetchPasswordList">
-          <template v-for="(item, index) of passwordList" :key="index">
-            <van-checkbox
-              :class="{ 'not-checkbox': !hasCheckbox }"
-              class="da-flex password-list-warp-item"
-              :name="item.id"
+        <template v-for="(item, index) of passwordList" :key="index">
+          <van-checkbox
+            :class="{ 'not-checkbox': !hasCheckbox }"
+            class="da-flex password-list-warp-item"
+            :name="item.id"
+          >
+            <van-cell
+              class="van-cell"
+              :title="item.title"
+              :label="item.username"
             >
-              <van-cell center :title="item.title" :label="item.username">
-                <template #default>
-                  <div class="da-flex da-flex-justify-end">
-                    <div class="da-flex da-flex-justify-space-around">
-                      <div class="da-flex da-flex-inline">
-                        <van-button
-                          type="primary"
-                          size="mini"
-                          @click="copyPassword(item)"
-                          >复制
-                        </van-button>
-                      </div>
-                      <div class="da-flex da-flex-inline">
-                        <van-button
-                          type="warning"
-                          size="mini"
-                          @click="editPassword(item)"
-                          >编辑
-                        </van-button>
-                      </div>
-                      <div class="da-flex da-flex-inline">
-                        <van-button
-                          type="danger"
-                          size="mini"
-                          @click="deletePassword(item)"
-                          >删除
-                        </van-button>
-                      </div>
+              <template #default>
+                <div class="da-flex da-flex-justify-end">
+                  <div class="da-flex da-flex-justify-space-around">
+                    <div class="da-flex da-flex-inline">
+                      <van-button
+                        type="primary"
+                        size="mini"
+                        @click="copyPassword(item)"
+                        >复制
+                      </van-button>
+                    </div>
+                    <div class="da-flex da-flex-inline">
+                      <van-button
+                        type="warning"
+                        size="mini"
+                        @click="editPassword(item)"
+                        >编辑
+                      </van-button>
+                    </div>
+                    <div class="da-flex da-flex-inline">
+                      <van-button
+                        type="danger"
+                        size="mini"
+                        @click="deletePassword(item)"
+                        >删除
+                      </van-button>
                     </div>
                   </div>
-                </template>
-              </van-cell>
-            </van-checkbox>
-          </template>
-        </van-pull-refresh>
+                </div>
+              </template>
+            </van-cell>
+          </van-checkbox>
+        </template>
       </van-checkbox-group>
     </div>
     <div class="da-flex da-flex-justify-center empty" v-else>
@@ -254,6 +256,23 @@ export default {
     }
 
     .password-list-warp-item {
+      .van-cell {
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      /deep/.van-cell__title {
+        overflow-x: hidden;
+        * {
+          width: 100%;
+          overflow-wrap: break-word;
+        }
+      }
+
+      /deep/ .van-checkbox__icon {
+        font-size: 16px;
+      }
+
       &.not-checkbox {
         /deep/ .van-checkbox__icon {
           display: none;

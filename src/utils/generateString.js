@@ -14,6 +14,7 @@ export default async (data = {}) => {
     excludedCharacters = [],
   } = data;
   let str = "";
+  if (!lowercase && !uppercase && !numbers && !symbols) return "";
 
   if (lowercase) str += _lowercase;
   if (uppercase) str += _uppercase;
