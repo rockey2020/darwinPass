@@ -132,13 +132,30 @@ export default {
       refreshing: false,
       showPasswordItemViewDialog: false,
       currentPasswordItem: {},
-      passwordListCached: [],
       passwordListChecked: [],
       passwordList: [],
       searchForm: {
         keywords: "",
       },
     };
+  },
+  computed: {
+    passwordListCached() {
+      return this.$store.state.password.list;
+    },
+  },
+  watch: {
+    passwordListCached: {
+      handler: async function () {
+        let list = this.passwordListCached;
+        if (this.showCurrentDomain) {
+          list = await filterPassword(list);
+          this.passwordList = list;
+        }
+        this.passwordList = list;
+      },
+      immediate: true,
+    },
   },
   methods: {
     async showPasswordItemViewDialogHandle(item) {
@@ -165,18 +182,9 @@ export default {
       this.passwordListChecked = [];
       this.refreshing = true;
 
-      PasswordRepository.fetchPasswordList()
-        .then(async (res) => {
-          if (this.showCurrentDomain) {
-            res.data = await filterPassword(res.data);
-            this.passwordListCached = res.data;
-            this.passwordList = res.data;
-          } else {
-            this.passwordListCached = res.data;
-            this.passwordList = res.data;
-          }
-        })
-        .finally(() => (this.refreshing = false));
+      PasswordRepository.fetchPasswordList().finally(
+        () => (this.refreshing = false)
+      );
     },
     async copyPassword(item) {
       copyText(item.password)
@@ -261,11 +269,12 @@ export default {
         padding-right: 5px;
       }
 
-      /deep/.van-cell__title {
+      /deep/ .van-cell__title {
         overflow-x: hidden;
+
         * {
           width: 100%;
-          overflow-wrap: break-word;
+          overflow-wrap: anywhere;
         }
       }
 
