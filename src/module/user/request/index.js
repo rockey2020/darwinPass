@@ -87,10 +87,10 @@ export const updatePassword = (params) => {
     .send();
 };
 
-export const deletePasswordList = (params) => {
+export const batchDeletePassword = (params) => {
   return new Manage()
     .setMethod(Manage.POST)
-    .setUrl(`${passwordRequestPrefix}deletePasswordList`)
+    .setUrl(`${passwordRequestPrefix}batchDeletePassword`)
     .setParams(params)
     .setResponseFilter(EmptyDefaultFilter)
     .send();

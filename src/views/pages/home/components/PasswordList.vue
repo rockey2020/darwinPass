@@ -197,7 +197,7 @@ export default {
           message: "是否要删除这个密码",
         })
         .then(() => {
-          PasswordRepository.deletePasswordList({
+          PasswordRepository.batchDeletePassword({
             ids: [item.id],
           })
             .makeResponseStatusMessage({ message: "删除密码" })
@@ -218,7 +218,7 @@ export default {
           ${titles.join(",")}`,
         })
         .then(() => {
-          PasswordRepository.deletePasswordList({
+          PasswordRepository.batchDeletePassword({
             ids: this.passwordListChecked,
           })
             .makeResponseStatusMessage({ message: "批量删除密码" })

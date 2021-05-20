@@ -18,15 +18,22 @@ class PasswordRepository {
     username = "",
     password = "",
   } = {}) {
-    return request.updatePassword();
+    return request.updatePassword({
+      id,
+      url,
+      notes,
+      title,
+      username,
+      password,
+    });
   }
 
   static batchCreatePassword({ list } = {}) {
     return request.batchCreatePassword({ list });
   }
 
-  static deletePasswordList({ ids }) {
-    return request.deletePasswordList({ ids });
+  static batchDeletePassword({ ids }) {
+    return request.batchDeletePassword({ ids });
   }
 }
 
