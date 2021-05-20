@@ -213,6 +213,8 @@ export default {
         });
     },
     async deletePasswordList() {
+      if (this.passwordListChecked.length === 0)
+        return this.$notify({ type: "warning", message: "至少选择一项" });
       const titles = this.passwordListChecked.map(
         (value) =>
           this.passwordList
@@ -222,8 +224,9 @@ export default {
       this.$dialog
         .confirm({
           title: "是否确认删除",
+          allowHtml: true,
           message: `是否要删除以下密码:
-          ${titles.join(",")}`,
+          <p style="text-align: left;margin: 0">${titles.join(",")}</p>`,
         })
         .then(() => {
           PasswordRepository.batchDeletePassword({
