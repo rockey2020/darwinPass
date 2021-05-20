@@ -19,6 +19,8 @@
         clearable
         required
         clickable
+        disabled
+        readonly
         v-model="formData.email"
         label="邮箱"
         :rules="rules.email"

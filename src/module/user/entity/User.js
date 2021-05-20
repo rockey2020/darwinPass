@@ -1,4 +1,5 @@
 import { ServicePlatformTypeFront } from "@/module/common/constant/ServicePlatformConstant";
+import store from "@/store";
 
 class User {
   constructor({
@@ -6,7 +7,6 @@ class User {
     username = "",
     email = "",
     maxIdleTime = 0,
-    servicePlatformType = null,
     authorization = "",
     //自定义字段
     servicePlatformTypeText = null,
@@ -15,7 +15,8 @@ class User {
     this.username = username;
     this.email = email;
     this.maxIdleTime = maxIdleTime;
-    this.servicePlatformType = servicePlatformType;
+    this.servicePlatformType =
+      store.state.setting.servicePlatform.servicePlatformType;
     this.authorization = authorization;
 
     //自定义字段
