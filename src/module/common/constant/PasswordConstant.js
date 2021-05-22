@@ -10,3 +10,14 @@ export const GeneratePasswordTypeFront = {
   [GeneratePasswordType.Numbers]: "数字",
   [GeneratePasswordType.Symbols]: "符号",
 };
+
+export const ImportPasswordPlatformType = {
+  LastPass: 1,
+  OnePassword: 2,
+  Bitwarden: 3,
+};
+export const ImportPasswordPlatformTypeFront = {
+  [ImportPasswordPlatformType.LastPass]: "LastPass",
+  [ImportPasswordPlatformType.OnePassword]: "1Password",
+  [ImportPasswordPlatformType.Bitwarden]: "Bitwarden",
+};

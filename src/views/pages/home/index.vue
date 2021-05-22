@@ -30,7 +30,7 @@
         @click="showAddPasswordItemViewDialogHandle"
       ></van-cell>
       <van-collapse-item title="批量导入密码" name="ImportPassword">
-        <import-password></import-password>
+        <import-password @success="onPasswordSuccess"></import-password>
       </van-collapse-item>
       <van-collapse-item
         title="生成随机安全密码"
@@ -116,10 +116,10 @@ export default {
     }
 
     /deep/ .PasswordList {
-      height: 20rem;
+      height: 12rem;
 
       .password-list-warp {
-        height: 18rem;
+        height: 10rem;
       }
     }
   }

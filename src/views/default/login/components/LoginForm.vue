@@ -2,9 +2,9 @@
   <div class="LoginForm">
     <service-platform-popup
       :selected-id="formData.servicePlatformType"
-      :show="isShowServicePlatformPopup"
+      :show="showServicePlatformPopup"
       @onSelected="(val) => (formData.servicePlatformType = val.id)"
-      @update:show="isShowServicePlatformPopup = false"
+      @update:show="showServicePlatformPopup = false"
     ></service-platform-popup>
     <van-form
       ref="vanForm"
@@ -46,7 +46,7 @@
         v-model.number="ServicePlatformTypeFront[formData.servicePlatformType]"
         :rules="rules.servicePlatformType"
         placeholder="请选择数据服务平台"
-        @click="isShowServicePlatformPopup = true"
+        @click="showServicePlatformPopup = true"
       >
         <template #label><span class="label">数据服务平台</span></template>
       </van-field>
@@ -118,7 +118,7 @@ export default {
       },
       ServicePlatformType,
       ServicePlatformTypeFront,
-      isShowServicePlatformPopup: false,
+      showServicePlatformPopup: false,
     };
   },
   methods: {
