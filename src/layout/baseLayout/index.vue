@@ -5,6 +5,9 @@
       :fixed="true"
       :placeholder="true"
       title="达尔文密码管理器"
+      :left-text="!isHome ? '返回' : ''"
+      :left-arrow="!isHome"
+      @click-left="$router.back()"
     />
     <div class="router-render">
       <router-view class="router-view"></router-view>
@@ -15,6 +18,11 @@
 <script>
 export default {
   name: "BaseLayout",
+  computed: {
+    isHome() {
+      return this.$route.name === "home";
+    },
+  },
 };
 </script>
 
@@ -24,7 +32,9 @@ export default {
     /deep/ .van-nav-bar {
       background-color: #3d8af2;
 
-      .van-nav-bar__title {
+      .van-nav-bar__title,
+      .van-nav-bar__text,
+      .van-icon {
         color: white;
       }
     }

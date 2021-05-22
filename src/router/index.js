@@ -48,6 +48,7 @@ router.beforeEach(async (to, from, next) => {
   await Manage.clearRequestQueue();
   //是否登录判断
   const isLogin = await UserRepository.isLogin();
+  if (isLogin && to.name === "login") await UserRepository.signOut();
   if (!isLogin && !whitelist.includes(to.name || to.path)) {
     return next({ name: "login" });
   }

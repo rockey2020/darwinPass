@@ -21,9 +21,11 @@
     </div>
 
     <van-collapse v-model="activeCollapseNames">
-      <van-collapse-item title="所有密码" name="AllPassword">
-        <password-list ref="allPassword"></password-list>
-      </van-collapse-item>
+      <van-cell
+        class="cursor-pointer fix-cell-border"
+        title="所有密码"
+        @click="$router.push('/allPassword')"
+      ></van-cell>
       <van-cell
         class="cursor-pointer fix-cell-border"
         title="添加密码"
@@ -52,11 +54,11 @@
 
 <script>
 import UserRepository from "@/module/user/repository/UserRepository";
+import PasswordList from "@/views/components/PasswordList";
 import AccountSettings from "@/views/pages/home/components/AccountSettings";
 import EditPasswordDialog from "@/views/pages/home/components/EditPasswordDialog";
 import GenerateRandomSecurityPassword from "@/views/pages/home/components/GenerateRandomSecurityPassword";
 import ImportPassword from "@/views/pages/home/components/ImportPassword";
-import PasswordList from "@/views/pages/home/components/PasswordList";
 
 export default {
   name: "Home",
@@ -82,7 +84,6 @@ export default {
       this.editPasswordItemDialogType = "add";
     },
     async onPasswordSuccess() {
-      this.$refs?.allPassword?.fetchPasswordList();
       this.$refs?.partPassword?.fetchPasswordList();
     },
     async signOut() {

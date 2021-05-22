@@ -252,7 +252,6 @@ export default {
 
 <style lang="less" scoped>
 .PasswordList {
-  height: 33rem;
   background-color: white;
 
   .empty {
@@ -263,9 +262,6 @@ export default {
   }
 
   .password-list-warp {
-    height: 78%;
-    overflow: hidden;
-
     .full-height {
       height: 100%;
       max-height: 100%;
