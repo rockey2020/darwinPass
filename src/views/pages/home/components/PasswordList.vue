@@ -45,7 +45,11 @@
         <span class="">共{{ passwordList.length }}条密码</span>
       </div>
     </div>
-    <div class="password-list-warp" v-if="passwordList.length !== 0">
+    <div
+      class="password-list-warp"
+      ref="password-list-warp"
+      v-if="passwordList.length !== 0"
+    >
       <van-checkbox-group
         class="van-checkbox-group full-height"
         ref="checkboxGroup"
@@ -104,6 +108,8 @@
 </template>
 
 <script>
+import BetterScroll from "better-scroll";
+
 import PasswordRepository from "@/module/user/repository/PasswordRepository";
 import copyText from "@/utils/copyText";
 import filterPassword from "@/utils/filterPassword";
@@ -137,6 +143,7 @@ export default {
       searchForm: {
         keywords: "",
       },
+      scrollInstance: null,
     };
   },
   computed: {
@@ -182,9 +189,9 @@ export default {
       this.passwordListChecked = [];
       this.refreshing = true;
 
-      PasswordRepository.fetchPasswordList().finally(
-        () => (this.refreshing = false)
-      );
+      PasswordRepository.fetchPasswordList().finally(() => {
+        this.refreshing = false;
+      });
     },
     async copyPassword(item) {
       copyText(item.password)

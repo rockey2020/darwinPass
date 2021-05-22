@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "better-scroll": "^2.3.1",
     "darwin-flex-layout": "^2.1.0",
     "localforage": "^1.9.0",
     "nanoid": "^3.1.22",
