@@ -29,6 +29,9 @@
         title="添加密码"
         @click="showAddPasswordItemViewDialogHandle"
       ></van-cell>
+      <van-collapse-item title="批量导入密码" name="ImportPassword">
+        <import-password></import-password>
+      </van-collapse-item>
       <van-collapse-item
         title="生成随机安全密码"
         name="GenerateRandomSecurityPassword"
@@ -52,11 +55,13 @@ import UserRepository from "@/module/user/repository/UserRepository";
 import AccountSettings from "@/views/pages/home/components/AccountSettings";
 import EditPasswordDialog from "@/views/pages/home/components/EditPasswordDialog";
 import GenerateRandomSecurityPassword from "@/views/pages/home/components/GenerateRandomSecurityPassword";
+import ImportPassword from "@/views/pages/home/components/ImportPassword";
 import PasswordList from "@/views/pages/home/components/PasswordList";
 
 export default {
   name: "Home",
   components: {
+    ImportPassword,
     AccountSettings,
     GenerateRandomSecurityPassword,
     EditPasswordDialog,
