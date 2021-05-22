@@ -157,7 +157,6 @@ export default {
         let list = this.passwordListCached;
         if (this.showCurrentDomain) {
           list = await filterPassword(list);
-          this.passwordList = list;
         }
         this.passwordList = list;
       },
