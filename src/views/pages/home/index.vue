@@ -38,11 +38,17 @@
       <van-collapse-item title="账号设置" name="AccountSettings">
         <account-settings></account-settings>
       </van-collapse-item>
+      <van-cell
+        class="cursor-pointer fix-cell-border"
+        title="退出登录"
+        @click="signOut"
+      ></van-cell>
     </van-collapse>
   </div>
 </template>
 
 <script>
+import UserRepository from "@/module/user/repository/UserRepository";
 import AccountSettings from "@/views/pages/home/components/AccountSettings";
 import EditPasswordDialog from "@/views/pages/home/components/EditPasswordDialog";
 import GenerateRandomSecurityPassword from "@/views/pages/home/components/GenerateRandomSecurityPassword";
@@ -73,6 +79,9 @@ export default {
     async onPasswordSuccess() {
       this.$refs?.allPassword?.fetchPasswordList();
       this.$refs?.partPassword?.fetchPasswordList();
+    },
+    async signOut() {
+      UserRepository.signOut().then(() => location.reload());
     },
   },
 };

@@ -25,7 +25,16 @@ class UserRepository {
   }
 
   static fetchUser() {
-    return request.fetchUser().then((res) => new User(res.data));
+    return request.fetchUser().then((res) => {
+      const user = new User(res.data);
+      delete user.authorization;
+      UserRepository.saveUser(user);
+      return user;
+    });
+  }
+
+  static signOut() {
+    return UserRepository.clearUser();
   }
 
   static login({
@@ -72,17 +81,11 @@ class UserRepository {
     });
   }
 
-  static updateUser({
-    id = null,
-    username = "",
-    email = "",
-    maxIdleTime = 0,
-  } = {}) {
+  static updateUser({ username = "", email = "", maxIdleTime = 0 } = {}) {
     return request.updateUser({
-      id: null,
-      username: "",
-      email: "",
-      maxIdleTime: 0,
+      username,
+      email,
+      maxIdleTime,
     });
   }
 }

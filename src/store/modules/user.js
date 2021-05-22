@@ -11,7 +11,11 @@ export default {
   }),
   mutations: {
     updateUser(state, data) {
-      Object.assign(state, data);
+      Object.entries(data).forEach(([key, value]) => {
+        if (Object.keys(state).includes(key)) {
+          state[key] = value;
+        }
+      });
     },
   },
   actions: {
