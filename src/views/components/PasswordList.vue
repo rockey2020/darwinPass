@@ -156,9 +156,12 @@ export default {
       handler: async function () {
         let list = this.passwordListCached;
         if (this.showCurrentDomain) {
-          list = await filterPassword(list);
+          filterPassword(list).then((res) => {
+            this.passwordList = res;
+          });
+        } else {
+          this.passwordList = list;
         }
-        this.passwordList = list;
       },
       immediate: true,
     },
