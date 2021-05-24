@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import UserRepository from "@/module/user/repository/UserRepository";
+import ProtobufAdapter from "@/network/adapter/protobuf";
 import store from "@/store";
 
 //准备执行的请求队列
@@ -68,6 +69,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   async function (response) {
     removeRequestQueue(response);
+    new ProtobufAdapter({ data: { a: 1 } });
     return response.data;
   },
   async function (error) {

@@ -1,0 +1,7 @@
+syntax = "proto3";
+package org.darwinPass.requestBody;
+
+message RequestBody{
+    string secret_key=1;
+    string data=2;
+}
