@@ -1,4 +1,5 @@
 import User from "@/module/user/entity/User";
+import router from "@/router";
 import store from "@/store";
 
 import * as request from "../request";
@@ -34,7 +35,10 @@ class UserRepository {
   }
 
   static signOut() {
-    return UserRepository.clearUser();
+    return UserRepository.clearUser().then((res) => {
+      router.replace("/");
+      return res;
+    });
   }
 
   static login({

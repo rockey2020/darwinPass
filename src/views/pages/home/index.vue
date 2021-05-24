@@ -87,7 +87,7 @@ export default {
       this.$refs?.partPassword?.fetchPasswordList();
     },
     async signOut() {
-      UserRepository.signOut().then(() => location.reload());
+      UserRepository.signOut();
     },
   },
 };

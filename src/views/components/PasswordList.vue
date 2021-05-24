@@ -48,7 +48,7 @@
     <div
       class="password-list-warp"
       ref="password-list-warp"
-      v-if="passwordList.length !== 0"
+      v-if="passwordList.length !== 0 && showPasswordList"
     >
       <van-checkbox-group
         class="van-checkbox-group full-height"
@@ -144,6 +144,7 @@ export default {
         keywords: "",
       },
       scrollInstance: null,
+      showPasswordList: false,
     };
   },
   computed: {
@@ -164,6 +165,14 @@ export default {
         }
       },
       immediate: true,
+    },
+    refreshing() {
+      if (this.refreshing && !this.showCurrentDomain) {
+        this.$toast.loading({
+          message: "加载中...",
+          forbidClick: false,
+        });
+      }
     },
   },
   methods: {
@@ -193,6 +202,7 @@ export default {
 
       PasswordRepository.fetchPasswordList().finally(() => {
         this.refreshing = false;
+        this.showPasswordList = true;
       });
     },
     async copyPassword(item) {

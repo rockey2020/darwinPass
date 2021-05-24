@@ -1,3 +1,7 @@
+import { Notify as notify } from "vant";
+
+import UserRepository from "@/module/user/repository/UserRepository";
+import Code from "@/network/code";
 import http from "@/network/http";
 import Pipe from "@/pipe";
 
@@ -22,6 +26,8 @@ class Manage {
 
   responseFilter = null;
 
+  showGlobalErrorMessage = true;
+
   static async clearRequestQueue() {
     http.clearRequestQueue();
   }
@@ -41,6 +47,11 @@ class Manage {
     return this;
   }
 
+  setShowGlobalErrorMessage(show = true) {
+    this.showGlobalErrorMessage = show;
+    return this;
+  }
+
   setResponseType(responseType) {
     this.responseType = responseType ?? this.responseType;
     return this;
@@ -56,13 +67,56 @@ class Manage {
     return this;
   }
 
+  signOut() {
+    UserRepository.signOut();
+  }
+
+  makeHttpResponseData({ statusCode, status } = {}) {
+    return {
+      codeText: Code.findCode(status || statusCode),
+      httpCodeText: Code.findHttpCode(status),
+      responseCodeText: Code.findResponseCode(statusCode),
+      httpCode: status,
+      responseCode: statusCode,
+    };
+  }
+
+  processHttpResponseSuccessHandle(axiosResponse = null) {
+    return this.makeHttpResponseData({ statusCode: axiosResponse.statusCode });
+  }
+
+  showErrorMessage(message = null) {
+    if (!message || message.length === 0) return;
+    notify({ message: message, type: "danger" });
+  }
+
+  processHttpResponseErrorHandle(axiosResponse = null) {
+    const makeHttpResponseData = this.makeHttpResponseData({
+      status: axiosResponse.status,
+      statusCode: axiosResponse.data.statusCode,
+    });
+    switch (makeHttpResponseData.httpCode) {
+      case 401:
+        this.signOut();
+        break;
+    }
+    this.showErrorMessage(makeHttpResponseData.codeText);
+    return makeHttpResponseData;
+  }
+
   send() {
     const { method, url, params, responseType } = this;
     const requestParams = { method, url, params, responseType };
 
     const defaultProcessResponse = async (response) => {
       if (this.responseFilter) {
-        return this.responseFilter(response);
+        const processHttpResponseSuccessHandle = this.processHttpResponseSuccessHandle(
+          response
+        );
+        return this.responseFilter({
+          ...response,
+          ...processHttpResponseSuccessHandle,
+        });
       }
     };
 
@@ -71,14 +125,16 @@ class Manage {
       try {
         if (this.requestMocker) {
           //mocker
-          body = this.requestMocker(requestParams).then(defaultProcessResponse);
+          body = await this.requestMocker(requestParams).then(
+            defaultProcessResponse
+          );
         } else {
           //real request
-          body = http.make(requestParams).then(defaultProcessResponse);
+          body = await http.make(requestParams).then(defaultProcessResponse);
         }
         resolve(body);
       } catch (e) {
-        reject(e);
+        reject(this.processHttpResponseErrorHandle(e.response));
       }
     });
   }
