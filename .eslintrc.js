@@ -59,7 +59,7 @@ module.exports = {
     "operator-linebreak": "error",
     "prefer-object-spread": "error",
     "quote-props": ["error", "as-needed"],
-    quotes: "error",
+    // quotes: "error",
     "semi-style": "error",
     "sort-vars": "error",
     "arrow-spacing": "error",

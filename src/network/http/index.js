@@ -69,7 +69,14 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   async function (response) {
     removeRequestQueue(response);
-    new ProtobufAdapter({ data: { a: 1 } });
+    const data = new ProtobufAdapter({
+      data: {
+        key: "城，宁家。今年的冬天格外冷，床头的闹铃响了好久",
+      },
+    }).make();
+    console.log(data);
+    console.log(data.length);
+    console.log(ProtobufAdapter.parse(data));
     return response.data;
   },
   async function (error) {
