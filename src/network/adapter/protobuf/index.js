@@ -26,8 +26,8 @@ class ProtobufAdapter {
     return CryptoJS.AES.encrypt(JSON.stringify(str), secretKey).toString();
   }
 
-  static zip(str) {
-    return pako.deflate(str, { to: "string", level: 9 });
+  static zip(data) {
+    return pako.deflate(data, { to: "string", level: 9 });
   }
 
   static unzip(U8Arr) {
