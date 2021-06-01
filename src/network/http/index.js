@@ -54,12 +54,21 @@ const axiosInstance = axios.create({
   timeout: 10000,
 });
 
+const encryptGetParams = (config) => {
+  const data = config.data;
+  const isEmpty = Object.keys(data).length === 0;
+  if (!isEmpty) {
+    config.data = { encryptedData: new ProtobufAdapter({ data }).make() };
+  }
+  return config;
+};
+
 axiosInstance.interceptors.request.use(
   async function (config) {
     config.url = getBaseUrl() + config.url;
     config.headers.authorization = await getAuthorization();
     addRequestQueue(config);
-    return config;
+    return encryptGetParams(config);
   },
   async function (error) {
     return Promise.reject(error);
@@ -69,14 +78,6 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   async function (response) {
     removeRequestQueue(response);
-    const data = new ProtobufAdapter({
-      data: {
-        key: "城，宁家。今年的冬天格外冷，床头的闹铃响了好久",
-      },
-    }).make();
-    console.log(data);
-    console.log(data.length);
-    console.log(ProtobufAdapter.parse(data));
     return response.data;
   },
   async function (error) {

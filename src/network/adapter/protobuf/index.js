@@ -12,18 +12,34 @@ class ProtobufAdapter {
 
     this.requestBody = new RequestBody();
 
-    this.requestBody.setData(ProtobufAdapter.encrypt(data, secretKey));
+    data = ProtobufAdapter.encodeData(data);
+
+    data = ProtobufAdapter.zip(data);
+
+    data = ProtobufAdapter.binary2String(data);
+
+    data = ProtobufAdapter.encrypt(data, secretKey);
+
+    this.requestBody.setData(data);
 
     this.requestBody.setSecretKey(secretKey);
   }
 
+  static encodeData(obj) {
+    return encodeURIComponent(JSON.stringify(obj));
+  }
+
+  static decodeData(objStr) {
+    return JSON.parse(decodeURIComponent(objStr));
+  }
+
   static decrypt(str, secretKey) {
     let bytes = CryptoJS.AES.decrypt(str, secretKey);
-    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    return bytes.toString(CryptoJS.enc.Utf8);
   }
 
   static encrypt(str, secretKey = "") {
-    return CryptoJS.AES.encrypt(JSON.stringify(str), secretKey).toString();
+    return CryptoJS.AES.encrypt(str, secretKey).toString();
   }
 
   static zip(data) {
@@ -61,12 +77,18 @@ class ProtobufAdapter {
   }
 
   static parse(str) {
-    const { data, secretKey } = ProtobufAdapter.deserializeBinary2Obj(
-      ProtobufAdapter.unzip(
-        ProtobufAdapter.string2Binary(ProtobufAdapter.base64Decode(str))
-      )
-    );
-    return ProtobufAdapter.decrypt(data, secretKey);
+    str = ProtobufAdapter.base64Decode(str);
+    str = ProtobufAdapter.string2Binary(str);
+
+    let { data, secretKey } = ProtobufAdapter.deserializeBinary2Obj(str);
+
+    data = ProtobufAdapter.decrypt(data, secretKey);
+    data = ProtobufAdapter.string2Binary(data);
+    data = ProtobufAdapter.unzip(data);
+    data = ProtobufAdapter.binary2String(data);
+    data = ProtobufAdapter.decodeData(data);
+
+    return data;
   }
 
   serializeBinary() {
@@ -75,7 +97,7 @@ class ProtobufAdapter {
 
   make() {
     return ProtobufAdapter.base64Encode(
-      ProtobufAdapter.binary2String(ProtobufAdapter.zip(this.serializeBinary()))
+      ProtobufAdapter.binary2String(this.serializeBinary())
     );
   }
 }
