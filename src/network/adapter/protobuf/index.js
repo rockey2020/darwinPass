@@ -2,15 +2,22 @@ import * as CryptoJS from "crypto-js";
 import { nanoid } from "nanoid";
 import * as pako from "pako";
 
-import { RequestBody } from "./requestBody_pb";
+import * as RequestBody from "./requestBody";
+
+const requestBody = RequestBody.lookup("org.darwinPass.requestBody")
+  .RequestBody;
 
 class ProtobufAdapter {
   requestBody = null;
 
+  data = null;
+
+  secretKey = null;
+
   constructor({ data } = {}) {
     const secretKey = nanoid(20);
 
-    this.requestBody = new RequestBody();
+    this.requestBody = requestBody;
 
     data = ProtobufAdapter.encodeData(data);
 
@@ -20,9 +27,9 @@ class ProtobufAdapter {
 
     data = ProtobufAdapter.encrypt(data, secretKey);
 
-    this.requestBody.setData(data);
+    this.data = data;
 
-    this.requestBody.setSecretKey(secretKey);
+    this.secretKey = secretKey;
   }
 
   static encodeData(obj) {
@@ -51,10 +58,10 @@ class ProtobufAdapter {
   }
 
   static deserializeBinary2Obj(U8Arr) {
-    const deserialize = RequestBody.deserializeBinary(U8Arr);
+    const { secretKey, data } = requestBody.decode(U8Arr);
     return {
-      data: deserialize.getData(),
-      secretKey: deserialize.getSecretKey(),
+      secretKey,
+      data,
     };
   }
 
@@ -95,7 +102,9 @@ class ProtobufAdapter {
   }
 
   serializeBinary() {
-    return this.requestBody.serializeBinary();
+    return this.requestBody
+      .encode({ data: this.data, secretKey: this.secretKey })
+      .finish();
   }
 
   make() {

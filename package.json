@@ -7,18 +7,18 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "buildWatch": "vue-cli-service build --watch",
-    "buildProtos": "protoc --js_out=import_style=commonjs,binary:. ./src/**/*.proto"
+    "buildProtos": "npx pbjs -t json-module -w commonjs -o ./src/network/adapter/protobuf/requestBody.js  src/network/adapter/protobuf/requestBody.proto"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "better-scroll": "^2.3.1",
     "crypto-js": "^4.0.0",
     "darwin-flex-layout": "^2.1.0",
-    "google-protobuf": "^3.17.1",
     "localforage": "^1.9.0",
     "nanoid": "^3.1.22",
     "pako": "^2.0.3",
     "papaparse": "^5.3.0",
+    "protobufjs": "^6.11.2",
     "rxjs": "^7.0.0",
     "vant": "^3.0.16",
     "vue": "^3.0.11",
