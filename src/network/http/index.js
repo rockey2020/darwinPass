@@ -54,7 +54,7 @@ const axiosInstance = axios.create({
   timeout: 10000,
 });
 
-const encryptGetParams = (config) => {
+const encryptParams = (config) => {
   const data = config.data;
   const isEmpty = Object.keys(data).length === 0;
   if (!isEmpty) {
@@ -63,12 +63,17 @@ const encryptGetParams = (config) => {
   return config;
 };
 
+const decryptResponse = (data) => {
+  if (data.encryptedData) data = ProtobufAdapter.parse(data.encryptedData);
+  return data;
+};
+
 axiosInstance.interceptors.request.use(
   async function (config) {
     config.url = getBaseUrl() + config.url;
     config.headers.authorization = await getAuthorization();
     addRequestQueue(config);
-    return encryptGetParams(config);
+    return encryptParams(config);
   },
   async function (error) {
     return Promise.reject(error);
@@ -78,7 +83,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   async function (response) {
     removeRequestQueue(response);
-    return response.data;
+    return decryptResponse(response.data);
   },
   async function (error) {
     return Promise.reject(error);

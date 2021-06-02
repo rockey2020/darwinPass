@@ -1,6 +1,6 @@
-import CryptoJS from "crypto-js";
+import * as CryptoJS from "crypto-js";
 import { nanoid } from "nanoid";
-import pako from "pako";
+import * as pako from "pako";
 
 import { RequestBody } from "./requestBody_pb";
 
@@ -65,7 +65,10 @@ class ProtobufAdapter {
   }
 
   static binary2String(U8Arr) {
-    return String.fromCharCode.apply(null, U8Arr);
+    return U8Arr.reduce(
+      (acc, i) => (acc += String.fromCharCode.apply(null, [i])),
+      ""
+    );
   }
 
   static base64Decode(base64Str) {

@@ -91,9 +91,10 @@ class Manage {
   }
 
   processHttpResponseErrorHandle(axiosResponse = null) {
+    if (!axiosResponse) return;
     const makeHttpResponseData = this.makeHttpResponseData({
-      status: axiosResponse.status,
-      statusCode: axiosResponse.data.statusCode,
+      status: axiosResponse?.status,
+      statusCode: axiosResponse?.data?.statusCode,
     });
     switch (makeHttpResponseData.httpCode) {
       case 401:
@@ -134,6 +135,7 @@ class Manage {
         }
         resolve(body);
       } catch (e) {
+        if (!e.response) return reject(e);
         reject(this.processHttpResponseErrorHandle(e.response));
       }
     });
