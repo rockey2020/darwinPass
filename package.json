@@ -7,14 +7,14 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "buildWatch": "vue-cli-service build --watch",
-    "buildProtos": "protoc --js_out=import_style=commonjs,binary:. ./src/**/*proto"
+    "buildProtos": "protoc --js_out=import_style=commonjs,binary:. ./src/**/*.proto"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "better-scroll": "^2.3.1",
     "crypto-js": "^4.0.0",
     "darwin-flex-layout": "^2.1.0",
-    "google-protobuf": "^3.17.0",
+    "google-protobuf": "^3.17.1",
     "localforage": "^1.9.0",
     "nanoid": "^3.1.22",
     "pako": "^2.0.3",
