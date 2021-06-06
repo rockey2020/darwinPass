@@ -27,11 +27,16 @@
     "ws://*/"
   ],
   "action": {
-    "default_popup": "./index.html"
+    "default_popup": "./index.html",
+    "default_icon": "img/icons/darwinPass_active.png"
   },
   "background": {
     "service_worker": "background.js"
   },
-  "icons": {},
+  "icons": {
+    "16": "img/icons/darwinPass_active.png",
+    "48": "img/icons/darwinPass_active.png",
+    "128": "img/icons/darwinPass_active.png"
+  },
   "author": "rockey2020"
 }
