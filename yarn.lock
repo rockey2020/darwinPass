@@ -3221,6 +3221,11 @@
   "resolved" "https://registry.npmjs.org/darwin-flex-layout/-/darwin-flex-layout-2.1.0.tgz"
   "version" "2.1.0"
 
+"dayjs@^1.10.5":
+  "integrity" "sha512-BUFis41ikLz+65iH6LHQCDm4YPMj5r1YFLdupPIyM4SGcXMmtiLQ7U37i+hGS8urIuqe7I/ou3IS1jVc4nbN4g=="
+  "resolved" "https://registry.npmjs.org/dayjs/-/dayjs-1.10.5.tgz"
+  "version" "1.10.5"
+
 "debug@^2.2.0":
   "integrity" "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA=="
   "resolved" "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz"
@@ -4470,11 +4475,6 @@
     "object-assign" "^4.0.1"
     "pify" "^2.0.0"
     "pinkie-promise" "^2.0.0"
-
-"google-protobuf@^3.17.1":
-  "integrity" "sha512-CHisE5cwd66w6y/K4K7x2N+SSZ0HgPBQwky7lKsj2vr4nXPuXQ2uUZgMF/ctXnd4xHL747Lh8LUgby2nA8gViA=="
-  "resolved" "https://registry.npmjs.org/google-protobuf/-/google-protobuf-3.17.1.tgz"
-  "version" "3.17.1"
 
 "graceful-fs@^4.1.11", "graceful-fs@^4.1.2", "graceful-fs@^4.1.6", "graceful-fs@^4.2.0", "graceful-fs@^4.2.4":
   "integrity" "sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ=="

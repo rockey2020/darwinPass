@@ -108,8 +108,6 @@
 </template>
 
 <script>
-import BetterScroll from "better-scroll";
-
 import PasswordRepository from "@/module/user/repository/PasswordRepository";
 import copyText from "@/utils/copyText";
 import filterPassword from "@/utils/filterPassword";
@@ -267,9 +265,12 @@ export default {
   background-color: white;
 
   .empty {
-    /deep/ .van-empty__image {
-      width: 80px;
-      height: 80px;
+    /deep/.van-empty {
+      padding-top: 1rem;
+      .van-empty__image {
+        width: 80px;
+        height: 80px;
+      }
     }
   }
 

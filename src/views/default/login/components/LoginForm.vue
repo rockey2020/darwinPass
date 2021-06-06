@@ -111,10 +111,12 @@ export default {
       rules,
       showPasswordController,
       formData: {
-        email: "",
+        email: this.$store.state.setting.lastLoginUserFormData.email,
         password: "",
-        servicePlatformType: null,
-        servicePlatformUrl: null,
+        servicePlatformType: this.$store.state.setting.lastLoginUserFormData
+          .servicePlatformType,
+        servicePlatformUrl: this.$store.state.setting.lastLoginUserFormData
+          .servicePlatformUrl,
       },
       ServicePlatformType,
       ServicePlatformTypeFront,

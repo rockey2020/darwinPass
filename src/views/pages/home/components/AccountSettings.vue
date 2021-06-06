@@ -31,7 +31,7 @@
         clickable
         type="number"
         v-model.number="formData.maxIdleTime"
-        label="最大闲置时间"
+        label="登录时长(分)"
         :rules="rules.maxIdleTime"
       />
       <van-field

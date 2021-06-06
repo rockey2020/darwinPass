@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 import User from "@/module/user/entity/User";
 import router from "@/router";
 import store from "@/store";
@@ -11,6 +13,26 @@ class UserRepository {
 
   static async clearUser() {
     store.dispatch("updateUser", new User());
+  }
+
+  static async computeSignOutAppTime() {
+    const maxIdleTime = store.state.user.maxIdleTime;
+    const lastLoginAppTime = dayjs.unix(store.state.setting.lastLoginAppTime);
+    const nowTime = dayjs();
+    if (maxIdleTime > 0) {
+      const minute = nowTime.diff(lastLoginAppTime, "minute", true);
+      if (minute > maxIdleTime) {
+        UserRepository.signOut();
+      }
+    }
+  }
+
+  static async updateLastLoginAppTime() {
+    store.dispatch("updateLastLoginAppTime", dayjs().unix());
+  }
+
+  static async initUserSettings() {
+    UserRepository.computeSignOutAppTime();
   }
 
   static async getAuthorization() {
@@ -51,9 +73,15 @@ class UserRepository {
       servicePlatformType,
       servicePlatformUrl,
     });
+    store.dispatch("updateLastLoginUserFormData", {
+      email,
+      servicePlatformType,
+      servicePlatformUrl,
+    });
     return request.login({ email, password }).then((res) => {
       const data = new User(res.data);
       UserRepository.saveUser(data);
+      UserRepository.updateLastLoginAppTime();
       return data;
     });
   }

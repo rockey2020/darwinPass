@@ -87,7 +87,14 @@ export default {
       this.$refs?.partPassword?.fetchPasswordList();
     },
     async signOut() {
-      UserRepository.signOut();
+      this.$dialog
+        .confirm({
+          title: "退出确认",
+          message: "是否退出账号",
+        })
+        .then(() => {
+          UserRepository.signOut();
+        });
     },
   },
 };

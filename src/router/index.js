@@ -46,6 +46,8 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   //取消所有准备执行的请求
   await Manage.clearRequestQueue();
+  //初始化用户保存在服务器的设置
+  await UserRepository.initUserSettings();
   //是否登录判断
   const isLogin = await UserRepository.isLogin();
   if (isLogin && to.name === "login") {
