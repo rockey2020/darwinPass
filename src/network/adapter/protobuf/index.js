@@ -4,8 +4,7 @@ import * as pako from "pako";
 
 import * as RequestBody from "./requestBody";
 
-const requestBody = RequestBody.lookup("org.darwinPass.requestBody")
-  .RequestBody;
+const requestBody = RequestBody.org.darwinPass.requestBody.RequestBody;
 
 class ProtobufAdapter {
   requestBody = null;

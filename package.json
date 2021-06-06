@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "buildWatch": "vue-cli-service build --watch",
-    "buildProtos": "npx pbjs -t json-module -w commonjs -o ./src/network/adapter/protobuf/requestBody.js  src/network/adapter/protobuf/requestBody.proto"
+    "buildProtos": "npx pbjs -t static-module -w commonjs -o ./src/network/adapter/protobuf/requestBody.js  src/network/adapter/protobuf/requestBody.proto"
   },
   "dependencies": {
     "axios": "^0.21.1",

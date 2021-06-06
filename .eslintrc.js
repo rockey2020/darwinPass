@@ -20,6 +20,7 @@ module.exports = {
     "plugin:prettier/recommended",
     "@vue/prettier",
   ],
+  ignorePatterns: ["requestBody.js"],
   plugins: [
     "html",
     "import",
