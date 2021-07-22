@@ -21,7 +21,7 @@
   "resolved" "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.14.0.tgz"
   "version" "7.14.0"
 
-"@babel/core@*", "@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.11.1", "@babel/core@^7.12.0", "@babel/core@^7.12.16", "@babel/core@^7.13.0", "@babel/core@^7.4.0-0":
+"@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.11.1", "@babel/core@^7.12.0", "@babel/core@^7.12.16", "@babel/core@^7.13.0", "@babel/core@^7.4.0-0":
   "integrity" "sha512-8YqpRig5NmIHlMLw09zMlPTvUVMILjqCOtVgu+TVNWEBvy9b5I3RRyhqnrV4hjgEK7n8P9OqvkWJAFmEL6Wwfw=="
   "resolved" "https://registry.npmjs.org/@babel/core/-/core-7.14.0.tgz"
   "version" "7.14.0"
@@ -3004,7 +3004,7 @@
     "browserslist" "^4.16.6"
     "semver" "7.0.0"
 
-"core-js@^3", "core-js@^3.11.3":
+"core-js@^3.11.3", "core-js@^3.8.3":
   "integrity" "sha512-DFEW9BllWw781Op5KdYGtXfj3s9Cmykzt16bY6elaVuqXHCUwF/5pv0H3IJ7/I3BGjK7OeU+GrjD1ChCkBJPuA=="
   "resolved" "https://registry.npmjs.org/core-js/-/core-js-3.11.3.tgz"
   "version" "3.11.3"
@@ -7560,7 +7560,7 @@
   "resolved" "https://registry.npmjs.org/shell-quote/-/shell-quote-1.7.2.tgz"
   "version" "1.7.2"
 
-"shvl@^2.0.2":
+"shvl@^2.0.3":
   "integrity" "sha512-V7C6S9Hlol6SzOJPnQ7qzOVEWUQImt3BNmmzh40wObhla3XOYMe4gGiYzLrJd5TFa+cI2f9LKIRJTTKZSTbWgw=="
   "resolved" "https://registry.npmjs.org/shvl/-/shvl-2.0.3.tgz"
   "version" "2.0.3"
@@ -8541,13 +8541,13 @@
     "@vue/runtime-dom" "3.0.11"
     "@vue/shared" "3.0.11"
 
-"vuex-persistedstate@^4.0.0-beta.3":
-  "integrity" "sha512-T4IRD27qoUWh+8qr6T6zVp15xO7x/nPgnU13OD0C2uUwA7U9PhGozrj6lvVmMYDyRgc36J0msMXn3GvwHjkIhA=="
-  "resolved" "https://registry.npmjs.org/vuex-persistedstate/-/vuex-persistedstate-4.0.0-beta.3.tgz"
-  "version" "4.0.0-beta.3"
+"vuex-persistedstate@^4.0.0":
+  "integrity" "sha512-jDs+awbV9YD2A2F6S5zgtYq1Bjd8v0YldOK6HPv1EJZzGMse0FtZTREfXvA7zlVfq9MpmSZJNmYQVylfpZ5znQ=="
+  "resolved" "https://registry.npmjs.org/vuex-persistedstate/-/vuex-persistedstate-4.0.0.tgz"
+  "version" "4.0.0"
   dependencies:
     "deepmerge" "^4.2.2"
-    "shvl" "^2.0.2"
+    "shvl" "^2.0.3"
 
 "vuex@^3.0 || ^4.0.0-rc", "vuex@^4.0.0":
   "integrity" "sha512-56VPujlHscP5q/e7Jlpqc40sja4vOhC4uJD1llBCWolVI8ND4+VzisDVkUMl+z5y0MpIImW6HjhNc+ZvuizgOw=="

@@ -43,6 +43,14 @@ const router = createRouter({
   },
 });
 
+const waitFor = (time = 1000) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, time);
+  });
+};
+
 router.beforeEach(async (to, from, next) => {
   //取消所有准备执行的请求
   await Manage.clearRequestQueue();

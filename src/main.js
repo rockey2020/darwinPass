@@ -1,16 +1,15 @@
 import { createApp } from "vue";
 
-import App from "./App";
-import vant from "./plugins/vant";
-import router from "./router";
-import store from "./store";
+import storageCache from "./plugins/storageCache";
 
-const app = createApp(App);
+storageCache.initStorageCache().then(async () => {
+  const app = createApp((await import("./App")).default);
 
-app.use(vant);
-app.use(store);
-app.use(router);
+  app.use((await import("./plugins/vant")).default);
+  app.use((await import("./store")).default);
+  app.use((await import("./router")).default);
 
-app.config.devtools = true;
+  app.config.devtools = true;
 
-app.mount("#app");
+  app.mount("#app");
+});

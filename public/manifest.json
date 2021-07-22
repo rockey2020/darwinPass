@@ -17,7 +17,8 @@
     "webRequest",
     "webNavigation",
     "notifications",
-    "sessions"
+    "sessions",
+    "contextMenus"
   ],
   "host_permissions": [
     "https://*/",
@@ -30,8 +31,19 @@
     "default_icon": "img/icons/darwinPass_active.png"
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "./backgrounds.js"
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/",
+        "http://*/"
+      ],
+      "js": [
+        "./content_scripts/index.js"
+      ]
+    }
+  ],
   "icons": {
     "16": "img/icons/darwinPass_active.png",
     "48": "img/icons/darwinPass_active.png",
